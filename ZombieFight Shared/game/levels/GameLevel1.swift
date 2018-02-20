@@ -33,14 +33,33 @@ class GameLevel1 : GameLevel {
     }
     
     #if os(OSX)
-    override func handleKeyEvent(event: UInt16) {
-        switch event {
-            case KeyboardEvents.SPACEBAR:
-                print("keyboard event:\(event)")
-                break
-            default:
-                break
+    override func keyDown(with theEvent: NSEvent) {
+        let key = theEvent.keyCode
+        switch(key) {
+        case KeyboardDirection.left.rawValue:
+            if !theEvent.isARepeat {
+            }
+            break
+        case KeyboardDirection.right.rawValue:
+            if !theEvent.isARepeat {
+            }
+            break
+        case KeyboardDirection.down.rawValue:
+            if !theEvent.isARepeat {
+            }
+            break
+        case KeyboardDirection.up.rawValue:
+            break
+        case KeyboardEvents.SPACEBAR:
+            break
+        case KeyboardEvents.ESCAPE:
+            break
+        default:
+            break
         }
+    }
+    
+    override func keyUp(with theEvent: NSEvent) {
     }
     
     #else

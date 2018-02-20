@@ -39,25 +39,11 @@ class GameLevel : NSObject, SCNSceneRendererDelegate, SCNPhysicsContactDelegate 
     }
     
     func keyDown(with theEvent: NSEvent) {
-        if let _ = KeyboardDirection(rawValue: theEvent.keyCode) {
-            if !theEvent.isARepeat {
-            }
-        } else {
-            //print("Another key is down:\(theEvent.keyCode)")
-            self.handleKeyEvent(event: theEvent.keyCode)
-        }
     }
     
     func keyUp(with theEvent: NSEvent) {
-        if let _ = KeyboardDirection(rawValue: theEvent.keyCode) {
-            if !theEvent.isARepeat {
-            }
-        }
     }
     
-    func handleKeyEvent(event:UInt16) {
-        print("Subclasses should handle this event")
-    }
     
     #else
     internal var padTouch: UITouch?

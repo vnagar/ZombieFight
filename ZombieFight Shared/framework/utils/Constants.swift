@@ -9,12 +9,12 @@
 import SceneKit
 import simd
 
+let namespace = "ZombieFight"
+
 #if os(iOS)
 typealias SCNColor = UIColor
-let namespace = "ZombieFight"
 #else
 typealias SCNColor = NSColor
-let namespace = "ZombieFight"
 #endif
 
 @objc enum GameState :Int {
@@ -28,6 +28,7 @@ let namespace = "ZombieFight"
 
 struct KeyboardEvents {
     static let SPACEBAR:UInt16 = 49
+    static let ESCAPE:UInt16 = 53
 }
 
 enum KeyboardDirection : UInt16 {
