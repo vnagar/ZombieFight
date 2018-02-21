@@ -56,6 +56,12 @@ class GameLevel0 : GameLevel {
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        print("Collision between \(contact.nodeA) and \(contact.nodeB)")
+        contact.match(ColliderType.Player.rawValue) { (matching, other) in
+            if(other.name == "Wall" || other.name == "Box1" || other.name == "Box2") {
+                player!.getNode().position -= player!.getNode().orientationVector() * 0.1
+            }
+        }
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
@@ -67,6 +73,7 @@ class GameLevel0 : GameLevel {
     override func startLevel() {
         super.startLevel()
         self.addHUD()
+        self.setupPhysicsBodies()
         
         // create and add a camera to the scene
         mainCameraNode.camera = SCNCamera()
@@ -109,6 +116,29 @@ class GameLevel0 : GameLevel {
         GameScenesManager.sharedInstance.setGameState(gameState: .LevelComplete, levelIndex:0)
     }
     
+    private func setupPhysicsBodies() {
+        guard let wall = scene.rootNode.childNode(withName: "Wall", recursively: true) else { return }
+        self.addPhysicsShape(node: wall, category:ColliderType.Wall.rawValue)
+        
+        guard let block1 = scene.rootNode.childNode(withName: "Box1", recursively: true) else { return }
+        self.addPhysicsShape(node: block1, category:ColliderType.Block.rawValue)
+        
+        guard let block2 = scene.rootNode.childNode(withName: "Box2", recursively: true) else { return }
+        self.addPhysicsShape(node: block2, category:ColliderType.Block.rawValue)
+        
+        guard let floor = scene.rootNode.childNode(withName: "Floor-Level", recursively: true) else { return }
+        floor.physicsBody = SCNPhysicsBody.static()
+        floor.physicsBody?.categoryBitMask = ColliderType.Ground.rawValue
+        floor.physicsBody?.contactTestBitMask = 0
+    }
+    
+    private func addPhysicsShape(node:SCNNode, category:Int) {
+        let physicsShape = SCNPhysicsShape(geometry: node.geometry!, options: [SCNPhysicsShape.Option.type:SCNPhysicsShape.ShapeType.concavePolyhedron])
+        node.physicsBody = SCNPhysicsBody(type: .static, shape: physicsShape)
+        node.physicsBody?.categoryBitMask = category
+        node.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
+    }
+
     #if os(OSX)
     override func keyDown(with theEvent: NSEvent) {
         let key = theEvent.keyCode

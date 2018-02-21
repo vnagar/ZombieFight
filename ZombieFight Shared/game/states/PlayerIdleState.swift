@@ -17,7 +17,7 @@ class PlayerIdleState : PlayerState {
     
     override func onEnterState() {
         super.onEnterState()
-        print("Entering Zombie Idle State")
+        //print("Entering Player Idle State")
         
         if let sm = self.stateMachine, let owner = sm.getOwner() as? PlayerEntity  {
             owner.changeAnimationStateTo(newState: .Idle)

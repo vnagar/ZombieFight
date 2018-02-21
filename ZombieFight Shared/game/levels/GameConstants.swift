@@ -12,14 +12,12 @@ enum ColliderType: Int {
     case Bullet = 4
     case Player = 8
     case Enemy = 16
-    case LeftWall = 32
-    case RightWall = 64
-    case BackWall = 128
-    case FrontWall = 256
-    case Door = 512
-    case PowerUp = 1024
-    case Obstacle = 2048
-    case Ground = 4096
+    case Wall = 32
+    case Block = 64
+    case Ground = 128
+    case Door = 256
+    case PowerUp = 512
+    case Obstacle = 1024
 }
 
 enum PlayerAnimationState : Int {

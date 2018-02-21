@@ -20,6 +20,8 @@ class PlayerEntity : Entity {
     private var velocity = SCNVector3Zero
     private var speed = Float(2.0)
     private let baseName = "Art.scnassets/characters/player/"
+    let contactTestBitMask = ColliderType.Enemy.rawValue | ColliderType.Wall.rawValue
+    let categoryBitMask = ColliderType.Player.rawValue
     
     init(name:String) {
         self.name = name
@@ -27,9 +29,19 @@ class PlayerEntity : Entity {
         
         if let idleNode = GameUtils.loadNodeFromScene(filename: baseName + "Idle.dae") {
             idleNode.scale = scale
-            
             node.addChildNode(idleNode)
+            
+            let physicsNode = SCNNode()
+            physicsNode.name = name
+            let geo = SCNCapsule(capRadius: 0.40, height: 1.0)
+            let shape = SCNPhysicsShape(geometry: geo, options: nil)
+            physicsNode.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.kinematic, shape: shape)
+            physicsNode.physicsBody?.contactTestBitMask = contactTestBitMask
+            physicsNode.physicsBody?.categoryBitMask = categoryBitMask
+            physicsNode.position = SCNVector3(0.0, 0.5, 0.0)
+            node.addChildNode(physicsNode)
         }
+        
         //load Animations
         let idleAnimation = GameUtils.loadAnimation(sceneName: baseName + "Idle", withExtension: "dae", animationIdentifier: GameConstants.Player.idleAnimationIdentifier)
         animations[GameConstants.Player.idleAnimationKey] = idleAnimation
@@ -190,4 +202,5 @@ class PlayerEntity : Entity {
         }
         currentAnimationState = newState
     }
+    
 }
