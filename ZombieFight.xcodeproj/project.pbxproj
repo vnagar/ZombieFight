@@ -54,6 +54,14 @@
 		95EB6028203CE61D00AD27CC /* GameLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6024203CE60C00AD27CC /* GameLevel2.swift */; };
 		95EB602A203CFF0200AD27CC /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6029203CFF0200AD27CC /* GameTime.swift */; };
 		95EB602B203CFF0200AD27CC /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6029203CFF0200AD27CC /* GameTime.swift */; };
+		95EB602D203D138300AD27CC /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB602C203D138300AD27CC /* EntityManager.swift */; };
+		95EB602E203D138300AD27CC /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB602C203D138300AD27CC /* EntityManager.swift */; };
+		95EB6030203D150700AD27CC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB602F203D150700AD27CC /* Entity.swift */; };
+		95EB6031203D150700AD27CC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB602F203D150700AD27CC /* Entity.swift */; };
+		95EB6033203D153200AD27CC /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6032203D153200AD27CC /* PlayerEntity.swift */; };
+		95EB6034203D153200AD27CC /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6032203D153200AD27CC /* PlayerEntity.swift */; };
+		95EB6036203D158200AD27CC /* EnemyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6035203D158200AD27CC /* EnemyEntity.swift */; };
+		95EB6037203D158200AD27CC /* EnemyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6035203D158200AD27CC /* EnemyEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +96,10 @@
 		95EB6023203CE60C00AD27CC /* GameLevel0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevel0.swift; sourceTree = "<group>"; };
 		95EB6024203CE60C00AD27CC /* GameLevel2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevel2.swift; sourceTree = "<group>"; };
 		95EB6029203CFF0200AD27CC /* GameTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTime.swift; sourceTree = "<group>"; };
+		95EB602C203D138300AD27CC /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		95EB602F203D150700AD27CC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		95EB6032203D153200AD27CC /* PlayerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
+		95EB6035203D158200AD27CC /* EnemyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +265,10 @@
 		959813EA203CD7E800218A0A /* entities */ = {
 			isa = PBXGroup;
 			children = (
+				95EB602C203D138300AD27CC /* EntityManager.swift */,
+				95EB602F203D150700AD27CC /* Entity.swift */,
+				95EB6032203D153200AD27CC /* PlayerEntity.swift */,
+				95EB6035203D158200AD27CC /* EnemyEntity.swift */,
 			);
 			path = entities;
 			sourceTree = "<group>";
@@ -365,11 +381,14 @@
 				95EB6026203CE60C00AD27CC /* GameLevel2.swift in Sources */,
 				95EB601A203CDED900AD27CC /* MenuUtils.swift in Sources */,
 				95EB602A203CFF0200AD27CC /* GameTime.swift in Sources */,
+				95EB6033203D153200AD27CC /* PlayerEntity.swift in Sources */,
 				95EB6016203CDED900AD27CC /* LevelCompleteMenu.swift in Sources */,
 				95EB6017203CDED900AD27CC /* GameLevelsMenu.swift in Sources */,
 				959813EB203CD7E900218A0A /* GameLevel1.swift in Sources */,
+				95EB6036203D158200AD27CC /* EnemyEntity.swift in Sources */,
 				959813D6203CA01700218A0A /* GameScenesManager.swift in Sources */,
 				95EB6019203CDED900AD27CC /* LevelFailedMenu.swift in Sources */,
+				95EB602D203D138300AD27CC /* EntityManager.swift in Sources */,
 				959813E2203CA9AD00218A0A /* GameController.swift in Sources */,
 				95EB6025203CE60C00AD27CC /* GameLevel0.swift in Sources */,
 				9598139E203C8FED00218A0A /* GameViewController.swift in Sources */,
@@ -379,6 +398,7 @@
 				959813E0203CA9AD00218A0A /* GameView.swift in Sources */,
 				959813D2203C9A2800218A0A /* NavigationMesh.swift in Sources */,
 				9598139C203C8FED00218A0A /* AppDelegate.swift in Sources */,
+				95EB6030203D150700AD27CC /* Entity.swift in Sources */,
 				95EB6018203CDED900AD27CC /* HUDNode.swift in Sources */,
 				959813CC203C99B100218A0A /* SCNExtensions.swift in Sources */,
 				959813D9203CA0D300218A0A /* Constants.swift in Sources */,
@@ -392,11 +412,14 @@
 				95EB6027203CE61D00AD27CC /* GameLevel0.swift in Sources */,
 				95EB6028203CE61D00AD27CC /* GameLevel2.swift in Sources */,
 				95EB602B203CFF0200AD27CC /* GameTime.swift in Sources */,
+				95EB6034203D153200AD27CC /* PlayerEntity.swift in Sources */,
 				95EB6022203CE27100AD27CC /* GameConstants.swift in Sources */,
 				95EB601B203CE07A00AD27CC /* GameLevelsMenu.swift in Sources */,
 				95EB601C203CE07A00AD27CC /* HUDNode.swift in Sources */,
+				95EB6037203D158200AD27CC /* EnemyEntity.swift in Sources */,
 				95EB601D203CE07A00AD27CC /* LevelCompleteMenu.swift in Sources */,
 				95EB601E203CE07A00AD27CC /* LevelFailedMenu.swift in Sources */,
+				95EB602E203D138300AD27CC /* EntityManager.swift in Sources */,
 				95EB601F203CE07A00AD27CC /* MenuUtils.swift in Sources */,
 				959813EC203CD7E900218A0A /* GameLevel1.swift in Sources */,
 				959813D7203CA01700218A0A /* GameScenesManager.swift in Sources */,
@@ -406,6 +429,7 @@
 				959813D1203C9A2800218A0A /* NavigationMeshGraph.swift in Sources */,
 				959813E1203CA9AD00218A0A /* GameView.swift in Sources */,
 				959813D3203C9A2800218A0A /* NavigationMesh.swift in Sources */,
+				95EB6031203D150700AD27CC /* Entity.swift in Sources */,
 				959813AD203C8FED00218A0A /* AppDelegate.swift in Sources */,
 				959813CD203C99B100218A0A /* SCNExtensions.swift in Sources */,
 				959813DA203CA0D300218A0A /* Constants.swift in Sources */,

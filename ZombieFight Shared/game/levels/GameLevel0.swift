@@ -36,9 +36,11 @@ class GameLevel0 : GameLevel {
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         gameTime.update(time: time)
+        EntityManager.sharedInstance.update(time: gameTime)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+        EntityManager.sharedInstance.physicsUpdate(time: gameTime)
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
