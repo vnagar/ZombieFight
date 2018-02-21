@@ -11,18 +11,15 @@ import SpriteKit
 import simd
 
 class GameLevel2 : GameLevel {
-    var previousTime = 0.0
-    var deltaTime = 0.0
-    
+    let gameTime = GameTime()
+
     override init() {
         super.init()
-        previousTime = 0.0
-        deltaTime = 0.0
     }
     
     override func createLevel(sceneView:SCNView) -> SCNScene {
         self.sceneView = sceneView
-        self.scene = SCNScene(named: "Art.scnassets/ship.scn")!
+        self.scene = SCNScene()
         
         return scene
     }

@@ -6,10 +6,12 @@
 //  Copyright © 2018 Vivek Nagar. All rights reserved.
 //
 
-import Foundation
+import SceneKit
 
 protocol Entity {
     func getName() -> String
+    func getNode() -> SCNNode
+    func destroy()
     func update(time:GameTime)
     func physicsUpdate(time:GameTime)
 }

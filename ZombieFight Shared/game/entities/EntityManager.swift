@@ -31,17 +31,24 @@ class EntityManager {
     }
     
     func update(time: GameTime) {
-        player!.update(time:time)
+        player?.update(time:time)
         for enemy in enemies {
             enemy.update(time:time)
         }
     }
     
     func physicsUpdate(time: GameTime) {
-        player!.physicsUpdate(time:time)
+        player?.physicsUpdate(time:time)
         for enemy in enemies {
             enemy.physicsUpdate(time:time)
         }
     }
     
+    func clearEntities() {
+        player?.destroy()
+        for enemy in enemies {
+            enemy.destroy()
+        }
+        enemies.removeAll()
+    }
 }

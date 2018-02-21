@@ -70,6 +70,25 @@ class GameLevel0 : GameLevel {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = SCNColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
+        
+        let player = EntityManager.sharedInstance.createPlayer()
+        scene.rootNode.addChildNode(player.getNode())
+        let enemies = EntityManager.sharedInstance.createEnemies()
+        for enemy in enemies {
+            scene.rootNode.addChildNode(enemy.getNode())
+        }
+    }
+    
+    override func levelFailed() {
+        EntityManager.sharedInstance.clearEntities()
+        self.cleanupScene()
+        GameScenesManager.sharedInstance.setGameState(gameState: .LevelFailed, levelIndex:0)
+    }
+    
+    override func levelCompleted() {
+        EntityManager.sharedInstance.clearEntities()
+        self.cleanupScene()
+        GameScenesManager.sharedInstance.setGameState(gameState: .LevelComplete, levelIndex:0)
     }
     
     #if os(OSX)
