@@ -47,6 +47,10 @@ class PlayerEntity : Entity {
         animations[GameConstants.Player.runAnimationKey] = runAnimation
         let jumpAnimation = GameUtils.loadAnimation(sceneName: baseName + "Jump", withExtension: "dae", animationIdentifier: GameConstants.Player.jumpAnimationIdentifier)
         animations[GameConstants.Player.jumpAnimationKey] = jumpAnimation
+        let leftTurnAnimation = GameUtils.loadAnimation(sceneName: baseName + "LeftTurn", withExtension: "dae", animationIdentifier: GameConstants.Player.leftTurnAnimationIdentifier)
+        animations[GameConstants.Player.leftTurnAnimationKey] = leftTurnAnimation
+        let rightTurnAnimation = GameUtils.loadAnimation(sceneName: baseName + "RightTurn", withExtension: "dae", animationIdentifier: GameConstants.Player.rightTurnAnimationIdentifier)
+        animations[GameConstants.Player.rightTurnAnimationKey] = rightTurnAnimation
         
         // Play the default animation
         node.removeAllAnimations()
@@ -94,8 +98,16 @@ class PlayerEntity : Entity {
     func changeRotationBy(angleInRadians:Float) {
         var rotation = self.node.rotation
         rotation.w = rotation.w + SCNFloat(angleInRadians)
-        let action = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, rotation.w), duration: 0.5)
-        self.node.runAction(action)
+        let action = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, rotation.w), duration: 0.4)
+        let curAnim = currentAnimationState
+        if(angleInRadians < 0) {
+            self.changeAnimationStateTo(newState: .RightTurn)
+        } else {
+            self.changeAnimationStateTo(newState: .LeftTurn)
+        }
+        self.node.runAction(action, completionHandler: { () in
+            self.changeAnimationStateTo(newState: curAnim)
+        })
     }
     
     func physicsUpdate(time: GameTime) {
@@ -135,6 +147,12 @@ class PlayerEntity : Entity {
         case .Jump:
             node.removeAnimation(forKey:GameConstants.Player.jumpAnimationKey)
             break
+        case .LeftTurn:
+            node.removeAnimation(forKey:GameConstants.Player.leftTurnAnimationKey)
+            break
+        case .RightTurn:
+            node.removeAnimation(forKey:GameConstants.Player.rightTurnAnimationKey)
+            break
         }
         switch(newState) {
         case .Idle:
@@ -162,6 +180,12 @@ class PlayerEntity : Entity {
             let animationObject = animations[GameConstants.Player.dieAnimationKey]!
             animationObject.repeatCount = 1
             node.addAnimation(animationObject, forKey:GameConstants.Player.dieAnimationKey)
+            break
+        case .LeftTurn:
+            node.addAnimation(animations[GameConstants.Player.leftTurnAnimationKey]!, forKey:GameConstants.Player.leftTurnAnimationKey)
+            break
+        case .RightTurn:
+            node.addAnimation(animations[GameConstants.Player.rightTurnAnimationKey]!, forKey:GameConstants.Player.rightTurnAnimationKey)
             break
         }
         currentAnimationState = newState

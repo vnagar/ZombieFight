@@ -30,7 +30,9 @@ enum PlayerAnimationState : Int {
     Kick,
     Punch,
     Shoot,
-    Die
+    Die,
+    LeftTurn,
+    RightTurn
 }
 
 enum EnemyAnimationState : Int {
@@ -59,6 +61,9 @@ struct GameConstants {
         static let dieAnimationKey = "dieAnimationKey"
         static let runAnimationKey = "runAnimationKey"
         static let jumpAnimationKey = "jumpAnimationKey"
+        static let leftTurnAnimationKey = "leftTurnAnimationKey"
+        static let rightTurnAnimationKey = "rightTurnAnimationKey"
+
         
         // These identifiers are in the dae file for the skeleton node
         static let idleAnimationIdentifier = "idleAnimation"
@@ -69,6 +74,9 @@ struct GameConstants {
         static let dieAnimationIdentifier = "dieAnimation"
         static let runAnimationIdentifier = "runAnimation"
         static let jumpAnimationIdentifier = "jumpAnimation"
+        static let leftTurnAnimationIdentifier = "leftTurnAnimation"
+        static let rightTurnAnimationIdentifier = "rightTurnAnimation"
+
     }
     struct Enemy {
         static let speedFactor = Float(5.0)

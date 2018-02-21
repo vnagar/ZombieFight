@@ -30,8 +30,8 @@ class GameUtils {
             // The animation will  play forever
             animationObject.repeatCount = Float.infinity
             // To create smooth transitions between animations
-            animationObject.fadeInDuration = CGFloat(0.25)
-            animationObject.fadeOutDuration = CGFloat(0.25)
+            animationObject.fadeInDuration = CGFloat(0.2)
+            animationObject.fadeOutDuration = CGFloat(0.2)
             
             return animationObject
         } else {
