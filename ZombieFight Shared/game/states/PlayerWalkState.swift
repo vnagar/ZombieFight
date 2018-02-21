@@ -6,7 +6,7 @@
 //  Copyright © 2018 Vivek Nagar. All rights reserved.
 //
 
-import Foundation
+import SceneKit
 
 class PlayerWalkState : PlayerState {
     
@@ -16,15 +16,19 @@ class PlayerWalkState : PlayerState {
     }
     
     override func onEnterState() {
-        if let sm = self.stateMachine {
-            if let owner = sm.getOwner() as? PlayerEntity {
-                owner.changeAnimationStateTo(newState: .Walk)
-            }
+        if let sm = self.stateMachine, let owner = sm.getOwner() as? PlayerEntity {
+            owner.changeAnimationStateTo(newState: .Walk)
         }
     }
+    
     override func onExitState() {}
     override func getStateType() -> PlayerStateType { return PlayerStateType.Walk }
     override func onUpdate(time:GameTime) -> PlayerStateType {
-        return PlayerStateType.Walk
+        if let sm = self.stateMachine, let owner = sm.getOwner() as? PlayerEntity {
+            if (owner.getVelocity() == SCNVector3Zero) {
+                return .Idle
+            }
+        }
+        return .Walk
     }
 }

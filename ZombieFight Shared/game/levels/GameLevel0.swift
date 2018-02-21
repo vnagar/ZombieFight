@@ -11,6 +11,7 @@ import SpriteKit
 import simd
 
 class GameLevel0 : GameLevel {
+    private var player:PlayerEntity?
     private var toggleCamera = false
     private var mainCameraNode = SCNNode()
     private var currentCameraNode = SCNNode()
@@ -83,11 +84,12 @@ class GameLevel0 : GameLevel {
         ambientLightNode.light!.color = SCNColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
         
-        let player = EntityManager.sharedInstance.createPlayer()
-        scene.rootNode.addChildNode(player.getNode())
-        playerCameraNode = player.getCameraNode()
-        player.getNode().position = playerSpawnPoint
-        player.getNode().eulerAngles = SCNVector3(0.0, Double.pi, 0.0)
+        self.player = EntityManager.sharedInstance.createPlayer()
+        guard let p = self.player else { fatalError("Cannot create player") }
+        scene.rootNode.addChildNode(p.getNode())
+        playerCameraNode = p.getCameraNode()
+        p.getNode().position = playerSpawnPoint
+        p.getNode().eulerAngles = SCNVector3(0.0, Double.pi, 0.0)
         
         let enemies = EntityManager.sharedInstance.createEnemies()
         for enemy in enemies {
@@ -113,17 +115,21 @@ class GameLevel0 : GameLevel {
         switch(key) {
         case KeyboardDirection.left.rawValue:
             if !theEvent.isARepeat {
+                player!.changeRotationBy(angleInRadians: Float.pi/4)
             }
             break
         case KeyboardDirection.right.rawValue:
             if !theEvent.isARepeat {
+                player!.changeRotationBy(angleInRadians: -Float.pi/4)
             }
             break
         case KeyboardDirection.down.rawValue:
             if !theEvent.isARepeat {
+                player!.changeRotationBy(angleInRadians: Float.pi)
             }
             break
         case KeyboardDirection.up.rawValue:
+            player!.setDirection(player!.getNode().orientationVector())
             break
         case KeyboardEvents.SPACEBAR:
             print("SPACEBAR")
@@ -137,6 +143,7 @@ class GameLevel0 : GameLevel {
     }
     
     override func keyUp(with theEvent: NSEvent) {
+        player!.setDirection(SCNVector3Zero)
     }
     
     #else

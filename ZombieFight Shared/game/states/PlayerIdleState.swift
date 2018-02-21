@@ -6,11 +6,9 @@
 //  Copyright © 2018 Vivek Nagar. All rights reserved.
 //
 
-import Foundation
+import SceneKit
 
 class PlayerIdleState : PlayerState {
-    private var idleTime = 5.0
-    private var timer = 0.0
     
     override init() {
         super.init()
@@ -20,12 +18,9 @@ class PlayerIdleState : PlayerState {
     override func onEnterState() {
         super.onEnterState()
         print("Entering Zombie Idle State")
-        timer = 0.0
         
-        if let sm = self.stateMachine {
-            if let owner = sm.getOwner() as? PlayerEntity {
-                owner.changeAnimationStateTo(newState: .Idle)
-            }
+        if let sm = self.stateMachine, let owner = sm.getOwner() as? PlayerEntity  {
+            owner.changeAnimationStateTo(newState: .Idle)
         }
     }
     override func onExitState() {}
@@ -33,11 +28,11 @@ class PlayerIdleState : PlayerState {
     override func getStateType() -> PlayerStateType { return PlayerStateType.Idle }
     
     override func onUpdate(time:GameTime) -> PlayerStateType {
-        timer = timer + time.deltaTime
-        if (timer < idleTime) {
-            return .Idle
-        } else {
-            return .Walk
+        if let sm = self.stateMachine, let owner = sm.getOwner() as? PlayerEntity {
+            if (owner.getVelocity() != SCNVector3Zero) {
+                return .Walk
+            }
         }
+        return .Idle
     }
 }

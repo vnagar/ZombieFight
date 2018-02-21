@@ -16,6 +16,9 @@ class PlayerEntity : Entity {
     private var currentAnimationState = PlayerAnimationState.Idle
     private var animationDict = [PlayerAnimationState: SCNNode]()
     private let scale = SCNVector3(0.0006, 0.0006, 0.0006)
+    private var direction = SCNVector3Zero
+    private var velocity = SCNVector3Zero
+    private var speed = Float(2.0)
     private let baseName = "Art.scnassets/characters/player/"
     
     init(name:String) {
@@ -76,6 +79,23 @@ class PlayerEntity : Entity {
     }
     
     func update(time:GameTime) {
+        self.velocity = self.direction * speed
+        node.position = node.position - velocity * Float(time.deltaTime)
+    }
+    
+    func setDirection(_ direction:SCNVector3) {
+        self.direction = direction.negate()
+    }
+    
+    func getVelocity() -> SCNVector3 {
+        return self.velocity
+    }
+    
+    func changeRotationBy(angleInRadians:Float) {
+        var rotation = self.node.rotation
+        rotation.w = rotation.w + SCNFloat(angleInRadians)
+        let action = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, rotation.w), duration: 0.5)
+        self.node.runAction(action)
     }
     
     func physicsUpdate(time: GameTime) {
