@@ -40,6 +40,14 @@ enum EnemyAnimationState : Int {
     Die
 }
 
+enum EnemyStateType : Int {
+    case None = 0, Idle, Alerted, Patrol, Attack, Feeding, Pursuit, Dead
+}
+
+enum PlayerStateType : Int {
+    case None = 0, Idle, Walk, Run, Jump, Kick, Punch, Shoot, Dead
+}
+
 struct GameConstants {
     struct Player {
         static let speedFactor = Float(10.0)

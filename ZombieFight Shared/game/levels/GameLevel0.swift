@@ -14,6 +14,8 @@ class GameLevel0 : GameLevel {
     private var toggleCamera = false
     private var mainCameraNode = SCNNode()
     private var currentCameraNode = SCNNode()
+    private var playerCameraNode = SCNNode()
+    private let playerSpawnPoint = SCNVector3(-6.0, 0.0, 5.0)
     let gameTime = GameTime()
     
     override init() {
@@ -35,6 +37,15 @@ class GameLevel0 : GameLevel {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if(toggleCamera) {
+            if (currentCameraNode == mainCameraNode) {
+                currentCameraNode = playerCameraNode
+            } else {
+                currentCameraNode = mainCameraNode
+            }
+            renderer.pointOfView = currentCameraNode
+            toggleCamera = false
+        }
         gameTime.update(time: time)
         EntityManager.sharedInstance.update(time: gameTime)
     }
@@ -63,6 +74,7 @@ class GameLevel0 : GameLevel {
         // place the camera
         mainCameraNode.position = SCNVector3(x: 0, y: 10, z: 15)
         mainCameraNode.rotation = SCNVector4(1.0, 0.0, 0.0, -Double.pi/4)
+        currentCameraNode = mainCameraNode
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
@@ -73,6 +85,10 @@ class GameLevel0 : GameLevel {
         
         let player = EntityManager.sharedInstance.createPlayer()
         scene.rootNode.addChildNode(player.getNode())
+        playerCameraNode = player.getCameraNode()
+        player.getNode().position = playerSpawnPoint
+        player.getNode().eulerAngles = SCNVector3(0.0, Double.pi, 0.0)
+        
         let enemies = EntityManager.sharedInstance.createEnemies()
         for enemy in enemies {
             scene.rootNode.addChildNode(enemy.getNode())
@@ -113,6 +129,7 @@ class GameLevel0 : GameLevel {
             print("SPACEBAR")
             break
         case KeyboardEvents.ESCAPE:
+            toggleCamera = !toggleCamera
             break
         default:
             break

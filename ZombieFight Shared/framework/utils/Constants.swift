@@ -26,6 +26,8 @@ typealias SCNColor = NSColor
     PostGame
 }
 
+
+
 struct KeyboardEvents {
     static let SPACEBAR:UInt16 = 49
     static let ESCAPE:UInt16 = 53

@@ -11,6 +11,7 @@ import SceneKit
 class EntityManager {
     static let sharedInstance = EntityManager()
     private var player:PlayerEntity?
+    private var playerStateMachine:PlayerStateMachine?
     private var enemies = [EnemyEntity]()
     
     private init() {
@@ -19,6 +20,10 @@ class EntityManager {
     func createPlayer() -> PlayerEntity {
         player = PlayerEntity(name:"Player")
         guard let playerEntity = player else { fatalError("Cannot create player") }
+        
+        let idleState = PlayerIdleState()
+        let walkState = PlayerWalkState()
+        playerStateMachine = PlayerStateMachine(owner:playerEntity, stateList:[idleState, walkState])
         
         return playerEntity
     }
@@ -31,6 +36,7 @@ class EntityManager {
     }
     
     func update(time: GameTime) {
+        playerStateMachine?.preupdate(time: time)
         player?.update(time:time)
         for enemy in enemies {
             enemy.update(time:time)
@@ -38,6 +44,7 @@ class EntityManager {
     }
     
     func physicsUpdate(time: GameTime) {
+        playerStateMachine?.update(time: time)
         player?.physicsUpdate(time:time)
         for enemy in enemies {
             enemy.physicsUpdate(time:time)
