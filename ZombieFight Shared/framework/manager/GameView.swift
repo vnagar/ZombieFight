@@ -95,7 +95,6 @@ class GameView : SCNView {
     
     private func setup2DOverlay() {
         //Any further customization.
-        print("IN SETUP 2D OVERLAY")
         self.debugOptions = SCNDebugOptions.showPhysicsShapes
     }
 }

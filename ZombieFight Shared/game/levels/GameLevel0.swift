@@ -11,13 +11,13 @@ import SpriteKit
 import simd
 
 class GameLevel0 : GameLevel {
-    var previousTime = 0.0
-    var deltaTime = 0.0
+    private var toggleCamera = false
+    private var mainCameraNode = SCNNode()
+    private var currentCameraNode = SCNNode()
+    let gameTime = GameTime()
     
     override init() {
         super.init()
-        previousTime = 0.0
-        deltaTime = 0.0
     }
     
     override func createLevel(sceneView:SCNView) -> SCNScene {
@@ -35,6 +35,7 @@ class GameLevel0 : GameLevel {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        gameTime.update(time: time)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
@@ -54,13 +55,12 @@ class GameLevel0 : GameLevel {
         self.addHUD()
         
         // create and add a camera to the scene
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        scene.rootNode.addChildNode(cameraNode)
+        mainCameraNode.camera = SCNCamera()
+        scene.rootNode.addChildNode(mainCameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 10, z: 15)
-        cameraNode.rotation = SCNVector4(1.0, 0.0, 0.0, -Double.pi/4)
+        mainCameraNode.position = SCNVector3(x: 0, y: 10, z: 15)
+        mainCameraNode.rotation = SCNVector4(1.0, 0.0, 0.0, -Double.pi/4)
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()

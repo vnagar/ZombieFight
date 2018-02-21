@@ -52,6 +52,8 @@
 		95EB6026203CE60C00AD27CC /* GameLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6024203CE60C00AD27CC /* GameLevel2.swift */; };
 		95EB6027203CE61D00AD27CC /* GameLevel0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6023203CE60C00AD27CC /* GameLevel0.swift */; };
 		95EB6028203CE61D00AD27CC /* GameLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6024203CE60C00AD27CC /* GameLevel2.swift */; };
+		95EB602A203CFF0200AD27CC /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6029203CFF0200AD27CC /* GameTime.swift */; };
+		95EB602B203CFF0200AD27CC /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6029203CFF0200AD27CC /* GameTime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,7 @@
 		95EB6020203CE22000AD27CC /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		95EB6023203CE60C00AD27CC /* GameLevel0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevel0.swift; sourceTree = "<group>"; };
 		95EB6024203CE60C00AD27CC /* GameLevel2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevel2.swift; sourceTree = "<group>"; };
+		95EB6029203CFF0200AD27CC /* GameTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +176,7 @@
 			children = (
 				959813CA203C99B000218A0A /* SCNExtensions.swift */,
 				959813D8203CA0D300218A0A /* Constants.swift */,
+				95EB6029203CFF0200AD27CC /* GameTime.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -360,6 +364,7 @@
 			files = (
 				95EB6026203CE60C00AD27CC /* GameLevel2.swift in Sources */,
 				95EB601A203CDED900AD27CC /* MenuUtils.swift in Sources */,
+				95EB602A203CFF0200AD27CC /* GameTime.swift in Sources */,
 				95EB6016203CDED900AD27CC /* LevelCompleteMenu.swift in Sources */,
 				95EB6017203CDED900AD27CC /* GameLevelsMenu.swift in Sources */,
 				959813EB203CD7E900218A0A /* GameLevel1.swift in Sources */,
@@ -386,6 +391,7 @@
 			files = (
 				95EB6027203CE61D00AD27CC /* GameLevel0.swift in Sources */,
 				95EB6028203CE61D00AD27CC /* GameLevel2.swift in Sources */,
+				95EB602B203CFF0200AD27CC /* GameTime.swift in Sources */,
 				95EB6022203CE27100AD27CC /* GameConstants.swift in Sources */,
 				95EB601B203CE07A00AD27CC /* GameLevelsMenu.swift in Sources */,
 				95EB601C203CE07A00AD27CC /* HUDNode.swift in Sources */,
