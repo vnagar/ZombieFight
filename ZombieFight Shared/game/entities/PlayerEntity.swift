@@ -104,11 +104,13 @@ class PlayerEntity : Entity {
         let leftTurnAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "LeftTurn.dae")
         node.addAnimationPlayer(leftTurnAnimation, forKey:GameConstants.Player.leftTurnAnimationKey)
         animationDict[.LeftTurn] = GameConstants.Player.leftTurnAnimationKey
+        print("Duration for leftTurn is \(leftTurnAnimation.animation.duration)")
         leftTurnAnimation.stop()
         
         let rightTurnAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "RightTurn.dae")
         node.addAnimationPlayer(rightTurnAnimation, forKey:GameConstants.Player.rightTurnAnimationKey)
         animationDict[.RightTurn] = GameConstants.Player.rightTurnAnimationKey
+        print("Duration for rightTurn is \(rightTurnAnimation.animation.duration)")
         rightTurnAnimation.stop()
         
         // Play the default animation
@@ -165,7 +167,7 @@ class PlayerEntity : Entity {
     func changeRotationBy(angleInRadians:Float) {
         var rotation = self.node.rotation
         rotation.w = rotation.w + SCNFloat(angleInRadians)
-        let action = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, rotation.w), duration: 0.4)
+        let action = SCNAction.rotate(toAxisAngle: SCNVector4(0, 1, 0, rotation.w), duration: 0.25)
         let curAnim = currentAnimationState
         if(angleInRadians < 0) {
             self.changeAnimationStateTo(newState: .RightTurn)
@@ -221,7 +223,7 @@ class PlayerEntity : Entity {
         aahSound.isPositional = false
         aahSound.load()
         
-        catchFireSound = SCNAudioSource(named: "Art.scnassets/sounds/panda_catch_fire.mp3")!
+        catchFireSound = SCNAudioSource(named: "Art.scnassets/sounds/catch_fire.mp3")!
         catchFireSound.volume = 5.0
         catchFireSound.isPositional = false
         catchFireSound.load()
