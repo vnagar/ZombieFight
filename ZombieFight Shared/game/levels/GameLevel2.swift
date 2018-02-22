@@ -60,9 +60,6 @@ class GameLevel2 : GameLevel {
     override func keyUp(with theEvent: NSEvent) {
     }
     #else
-    override func handleTouchForAttackNode() {
-        print("Handling attack touch")
-    }
     
     #endif
 }

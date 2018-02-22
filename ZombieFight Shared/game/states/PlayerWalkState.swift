@@ -16,6 +16,7 @@ class PlayerWalkState : PlayerState {
     }
     
     override func onEnterState() {
+        print("Entering WALK STATE")
         if let sm = self.stateMachine, let owner = sm.getOwner() as? PlayerEntity {
             owner.changeAnimationStateTo(newState: .Walk)
         }

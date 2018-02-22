@@ -63,31 +63,46 @@ class GameView : SCNView {
     override func awakeFromNib() {
         super.awakeFromNib()
         setup2DOverlay()
+        
+    }
+    
+    @objc func leftGesture(_ sender: UISwipeGestureRecognizer) {
+        guard let _ = GameScenesManager.sharedInstance.currentLevel?.leftGesture(gesture:sender) else {
+            return
+        }
+    }
+    @objc func rightGesture(_ sender: UISwipeGestureRecognizer) {
+        guard let _ = GameScenesManager.sharedInstance.currentLevel?.rightGesture(gesture:sender) else {
+            return
+        }
+    }
+    @objc func downGesture(_ sender: UISwipeGestureRecognizer) {
+        guard let _ = GameScenesManager.sharedInstance.currentLevel?.downGesture(gesture:sender) else {
+            return
+        }
+    }
+    @objc func tapGesture(_ sender: UITapGestureRecognizer) {
+        guard let _ = GameScenesManager.sharedInstance.currentLevel?.tapped(gesture:sender) else {
+            return
+        }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let _ = GameScenesManager.sharedInstance.currentLevel?.touchesBegan(touches: touches as Set<UITouch>, with:event) else {
-            super.touchesBegan(touches as Set<UITouch>, with:event)
-            return
-        }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let _ = GameScenesManager.sharedInstance.currentLevel?.touchesMoved(touches: touches as Set<UITouch>, with:event) else {
-            super.touchesMoved(touches as Set<UITouch>, with:event)
-            return
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let _ = GameScenesManager.sharedInstance.currentLevel?.touchesEnded(touches: touches as Set<UITouch>, with:event) else {
-            super.touchesEnded(touches as Set<UITouch>, with:event)
-            return
-        }
+        self.isUserInteractionEnabled = true
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(rightGesture(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(leftGesture(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.addGestureRecognizer(swipeLeft)
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(downGesture(_:)))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        self.addGestureRecognizer(swipeDown)
+        
+        let tapGesture = UITapGestureRecognizer(target:self, action: #selector(tapGesture(_:)))
+        self.addGestureRecognizer(tapGesture)
     }
     
     #endif

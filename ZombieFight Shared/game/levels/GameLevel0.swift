@@ -10,6 +10,14 @@ import SceneKit
 import SpriteKit
 import simd
 
+enum AudioSourceKind: Int {
+    case collect = 0
+    case collectBig
+    case unlockDoor
+    case hitEnemy
+    case totalCount
+}
+
 class GameLevel0 : GameLevel {
     private var player:PlayerEntity?
     private var toggleCamera = false
@@ -84,7 +92,6 @@ class GameLevel0 : GameLevel {
         // place the camera
         mainCameraNode.position = SCNVector3(x: 0, y: 10, z: 15)
         mainCameraNode.rotation = SCNVector4(1.0, 0.0, 0.0, -Double.pi/4)
-        currentCameraNode = mainCameraNode
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
@@ -97,6 +104,9 @@ class GameLevel0 : GameLevel {
         guard let p = self.player else { fatalError("Cannot create player") }
         scene.rootNode.addChildNode(p.getNode())
         playerCameraNode = p.getCameraNode()
+        currentCameraNode = playerCameraNode
+        sceneView.pointOfView = currentCameraNode
+
         p.getNode().position = playerSpawnPoint
         p.getNode().eulerAngles = SCNVector3(0.0, Double.pi, 0.0)
         
@@ -105,6 +115,10 @@ class GameLevel0 : GameLevel {
             scene.rootNode.addChildNode(enemy.getNode())
             enemy.getNode().position = enemySpawnPoint
         }
+        
+        
+        //self.setupAudio()
+
     }
     
     override func levelFailed() {
@@ -140,6 +154,21 @@ class GameLevel0 : GameLevel {
         node.physicsBody = SCNPhysicsBody(type: .static, shape: physicsShape)
         node.physicsBody?.categoryBitMask = category
         node.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
+    }
+    
+    func setupAudio() {
+        // Get an arbitrary node to attach the sounds to.
+        let node = scene.rootNode
+        
+        // ambience
+        if let audioSource = SCNAudioSource(named: "Art.scnassets/sounds/ambience.mp3") {
+            audioSource.loops = true
+            audioSource.volume = 0.8
+            audioSource.isPositional = false
+            audioSource.shouldStream = true
+            node.addAudioPlayer(SCNAudioPlayer(source: audioSource))
+        }
+        
     }
 
     #if os(OSX)
@@ -180,7 +209,39 @@ class GameLevel0 : GameLevel {
     }
     
     #else
-    override func handleTouchForAttackNode() {
+    override func tapped(gesture: UITapGestureRecognizer) {
+        var touchLocation: CGPoint = gesture.location(in: gesture.view)
+        touchLocation = sceneView.overlaySKScene!.convertPoint(fromView: touchLocation)
+        let node:SKNode = sceneView.overlaySKScene!.atPoint(touchLocation)
+        print("TAPPED NODE:\(node.name)")
+        
+        if let tappedNodeName = node.name {
+            if (tappedNodeName == "attackNode") {
+                self.attack()
+            } else if (tappedNodeName == "dpad" ) {
+                player!.setDirection(player!.getNode().orientationVector())
+            }
+        } else {
+             player!.setDirection(SCNVector3Zero)
+        }
+        
+    }
+    
+    override func leftGesture(gesture:UISwipeGestureRecognizer) {
+        player!.changeRotationBy(angleInRadians: Float.pi/4)
+
+    }
+    override func rightGesture(gesture:UISwipeGestureRecognizer) {
+        player!.changeRotationBy(angleInRadians: -Float.pi/4)
+
+    }
+    override func downGesture(gesture:UISwipeGestureRecognizer) {
+        player!.changeRotationBy(angleInRadians: Float.pi)
+
+    }
+    
+    
+    func attack() {
         print("Handling attack touch")
     }
     

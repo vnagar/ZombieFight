@@ -41,11 +41,10 @@ class GameLevelsMenu : GameLevel {
     }
     
     #else
-    override func touchesBegan(touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let p = touch.location(in: sceneView.overlaySKScene!)
-            self.handleSelection(view: sceneView, location:p)
-        }
+    override func tapped(gesture: UITapGestureRecognizer) {
+        var touchLocation: CGPoint = gesture.location(in: gesture.view)
+        touchLocation = sceneView.overlaySKScene!.convertPoint(fromView: touchLocation)
+        self.handleSelection(view: sceneView, location:touchLocation)
     }
     
     #endif

@@ -60,9 +60,7 @@ class GameLevel1 : GameLevel {
     }
     
     #else
-    override func handleTouchForAttackNode() {
-        print("Handling attack touch")
-    }
+
     
     #endif
 }

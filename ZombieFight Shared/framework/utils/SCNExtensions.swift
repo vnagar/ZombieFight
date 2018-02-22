@@ -90,6 +90,28 @@ extension CAAnimation {
 }
 
 // MARK: SceneKit
+extension SCNAnimationPlayer {
+    func animationPlayer(offset:TimeInterval) -> SCNAnimationPlayer {
+        var anim = self.animation
+        let caAnim = CAAnimation(scnAnimation: anim)
+        caAnim.timeOffset = offset * caAnim.duration
+        caAnim.speed = 0
+        caAnim.usesSceneTimeBase = false
+        anim = SCNAnimation(caAnimation: caAnim)
+        let animPlayer = SCNAnimationPlayer(animation: anim)
+        return animPlayer
+    }
+    
+    func animationPlayer(count:Float) -> SCNAnimationPlayer {
+        var anim = self.animation
+        let caAnim = CAAnimation(scnAnimation: anim)
+        caAnim.repeatCount = count
+        caAnim.usesSceneTimeBase = false
+        anim = SCNAnimation(caAnimation: caAnim)
+        let animPlayer = SCNAnimationPlayer(animation: anim)
+        return animPlayer
+    }
+}
 
 extension SCNNode {
     func orientationVector() -> SCNVector3 {

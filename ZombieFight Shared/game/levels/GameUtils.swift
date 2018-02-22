@@ -22,6 +22,21 @@ class GameUtils {
         return node
     }
     
+    /* New method of animations using SCNAnimationPlayer */
+    class func loadAnimation(fromSceneNamed sceneName: String) -> SCNAnimationPlayer {
+        let scene = SCNScene( named: sceneName )!
+        // find top level animation
+        var animationPlayer: SCNAnimationPlayer! = nil
+        scene.rootNode.enumerateChildNodes { (child, stop) in
+            if !child.animationKeys.isEmpty {
+                animationPlayer = child.animationPlayer(forKey: child.animationKeys[0])
+                stop.pointee = true
+            }
+        }
+        return animationPlayer
+    }
+    
+    /* old method using CAAnimation */
     class func loadAnimation(sceneName:String, withExtension:String, animationIdentifier:String) -> CAAnimation? {
         let sceneURL = Bundle.main.url(forResource: sceneName, withExtension: withExtension)
         let sceneSource = SCNSceneSource(url: sceneURL!, options: nil)
