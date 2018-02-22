@@ -12,9 +12,8 @@ class PlayerEntity : Entity {
     private var name = ""
     private var node = SCNNode()
     private let cameraNode = SCNNode()
-    //private var animations = [String: SCNAnimationPlayer]()
+    private var animationDict = [PlayerAnimationState: String]()
     private var currentAnimationState = PlayerAnimationState.Idle
-    //private var animationDict = [PlayerAnimationState: SCNNode]()
     private let scale = SCNVector3(0.0006, 0.0006, 0.0006)
     private var direction = SCNVector3Zero
     private var velocity = SCNVector3Zero
@@ -61,43 +60,55 @@ class PlayerEntity : Entity {
 
         let idleAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Idle.dae")
         node.addAnimationPlayer(idleAnimation, forKey:GameConstants.Player.idleAnimationKey)
-        let walkAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Walk.dae")
-        /*
-        walkAnimation.animation.animationEvents = [
-            SCNAnimationEvent(keyTime: 0.1, block: { _, _, _ in self.playFootStep() }),
-            SCNAnimationEvent(keyTime: 0.6, block: { _, _, _ in self.playFootStep() })
-        ]
-        */
-        node.addAnimationPlayer(walkAnimation, forKey:GameConstants.Player.walkAnimationKey)
-        walkAnimation.stop()
+        animationDict[.Idle] = GameConstants.Player.idleAnimationKey
         
+        let walkAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Walk.dae")
+        node.addAnimationPlayer(walkAnimation, forKey:GameConstants.Player.walkAnimationKey)
+        animationDict[.Walk] = GameConstants.Player.walkAnimationKey
+        walkAnimation.stop()
+    
         let kickAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Kick.dae")
         node.addAnimationPlayer(kickAnimation, forKey:GameConstants.Player.kickAnimationKey)
+        animationDict[.Kick] = GameConstants.Player.kickAnimationKey
         kickAnimation.stop()
+        
         let punchAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Punch.dae")
         node.addAnimationPlayer(punchAnimation, forKey:GameConstants.Player.punchAnimationKey)
+        animationDict[.Punch] = GameConstants.Player.punchAnimationKey
         punchAnimation.stop()
+        
         let shootAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Shoot.dae")
         node.addAnimationPlayer(shootAnimation, forKey:GameConstants.Player.shootAnimationKey)
+        animationDict[.Shoot] = GameConstants.Player.shootAnimationKey
         shootAnimation.stop()
-        var dieAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Die.dae")
-        dieAnimation = dieAnimation.animationPlayer(count:1.0)
+        
+        let dieAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Die.dae")
+        dieAnimation.animation.repeatCount = 1
         dieAnimation.animation.animationDidStop = { _, _ , _ in
-            print("ANIMATION DID STOP")
+            print("Player die animation DID STOP")
         }
         node.addAnimationPlayer(dieAnimation, forKey:GameConstants.Player.dieAnimationKey)
+        animationDict[.Die] = GameConstants.Player.dieAnimationKey
         dieAnimation.stop()
+        
         let runAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Run.dae")
         node.addAnimationPlayer(runAnimation, forKey:GameConstants.Player.runAnimationKey)
+        animationDict[.Run] = GameConstants.Player.runAnimationKey
         runAnimation.stop()
+        
         let jumpAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Jump.dae")
         node.addAnimationPlayer(jumpAnimation, forKey:GameConstants.Player.jumpAnimationKey)
+        animationDict[.Jump] = GameConstants.Player.jumpAnimationKey
         jumpAnimation.stop()
+        
         let leftTurnAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "LeftTurn.dae")
         node.addAnimationPlayer(leftTurnAnimation, forKey:GameConstants.Player.leftTurnAnimationKey)
+        animationDict[.LeftTurn] = GameConstants.Player.leftTurnAnimationKey
         leftTurnAnimation.stop()
+        
         let rightTurnAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "RightTurn.dae")
         node.addAnimationPlayer(rightTurnAnimation, forKey:GameConstants.Player.rightTurnAnimationKey)
+        animationDict[.RightTurn] = GameConstants.Player.rightTurnAnimationKey
         rightTurnAnimation.stop()
         
         // Play the default animation
@@ -116,8 +127,6 @@ class PlayerEntity : Entity {
         cameraNode.eulerAngles = SCNVector3(-Double.pi/8, Double.pi, 0.0)
         node.addChildNode(cameraNode)
         
-        //self.loadSounds()
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -181,79 +190,22 @@ class PlayerEntity : Entity {
             return
         }
         
-        switch(currentAnimationState) {
-        case .Idle:
-            node.animationPlayer(forKey:GameConstants.Player.idleAnimationKey)!.stop()
-            break
-        case .Walk:
-            let anim = node.animationPlayer(forKey:GameConstants.Player.walkAnimationKey)!
+        if let animationKey = animationDict[currentAnimationState] {
+            let anim = node.animationPlayer(forKey:animationKey)!
             anim.animation.animationEvents = []
             anim.stop()
-            break
-        case .Punch:
-            node.animationPlayer(forKey:GameConstants.Player.punchAnimationKey)!.stop()
-            break
-        case .Kick:
-            node.animationPlayer(forKey:GameConstants.Player.kickAnimationKey)!.stop()
-            break
-        case .Shoot:
-            node.animationPlayer(forKey:GameConstants.Player.shootAnimationKey)!.stop()
-            break
-        case .Die:
-            node.animationPlayer(forKey:GameConstants.Player.dieAnimationKey)!.stop()
-            break
-        case .Run:
-            node.animationPlayer(forKey:GameConstants.Player.runAnimationKey)!.stop()
-            break
-        case .Jump:
-            node.animationPlayer(forKey:GameConstants.Player.jumpAnimationKey)!.stop()
-            break
-        case .LeftTurn:
-            node.animationPlayer(forKey:GameConstants.Player.leftTurnAnimationKey)!.stop()
-            break
-        case .RightTurn:
-            node.animationPlayer(forKey:GameConstants.Player.rightTurnAnimationKey)!.stop()
-            break
         }
-        switch(newState) {
-        case .Idle:
-            node.animationPlayer(forKey:GameConstants.Player.idleAnimationKey)!.play()
-            break
-        case .Walk:
-            let anim = node.animationPlayer(forKey:GameConstants.Player.walkAnimationKey)!
-            anim.animation.animationEvents = [
-                SCNAnimationEvent(keyTime: 0.1, block: { _, _, _ in self.playFootStep() }),
-                SCNAnimationEvent(keyTime: 0.6, block: { _, _, _ in self.playFootStep() })
-            ]
+        if let newAnimationKey = animationDict[newState] {
+            let anim = node.animationPlayer(forKey:newAnimationKey)!
+            if(newState == .Walk) {
+                anim.animation.animationEvents = [
+                    SCNAnimationEvent(keyTime: 0.1, block: { _, _, _ in self.playFootStep() }),
+                    SCNAnimationEvent(keyTime: 0.6, block: { _, _, _ in self.playFootStep() })
+                ]
+            }
             anim.play()
-            break
-        case .Punch:
-            node.animationPlayer(forKey:GameConstants.Player.punchAnimationKey)!.play()
-            break
-        case .Kick:
-            node.animationPlayer(forKey:GameConstants.Player.kickAnimationKey)!.play()
-            break
-        case .Shoot:
-            node.animationPlayer(forKey:GameConstants.Player.shootAnimationKey)!.play()
-            break
-        case .Run:
-            node.animationPlayer(forKey:GameConstants.Player.runAnimationKey)!.play()
-            break
-        case .Jump:
-            node.animationPlayer(forKey:GameConstants.Player.jumpAnimationKey)!.play()
-            break
-        case .Die:
-            //let animationObject = animations[GameConstants.Player.dieAnimationKey]!
-            //animationObject.repeatCount = 1
-            node.animationPlayer(forKey:GameConstants.Player.dieAnimationKey)!.play()
-            break
-        case .LeftTurn:
-            node.animationPlayer( forKey:GameConstants.Player.leftTurnAnimationKey)!.play()
-            break
-        case .RightTurn:
-            node.animationPlayer(forKey:GameConstants.Player.rightTurnAnimationKey)!.play()
-            break
         }
+        
         currentAnimationState = newState
     }
     

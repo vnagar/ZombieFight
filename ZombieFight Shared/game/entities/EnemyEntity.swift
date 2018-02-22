@@ -11,9 +11,8 @@ import SceneKit
 class EnemyEntity : Entity {
     private var name = ""
     private var node = SCNNode()
-    private var animations = [String: CAAnimation]()
     private var currentAnimationState = EnemyAnimationState.Idle
-    private var animationDict = [EnemyAnimationState: SCNNode]()
+    private var animationDict = [EnemyAnimationState: String]()
     private let scale = SCNVector3(0.007, 0.007, 0.007)
     private var direction = SCNVector3Zero
     private var velocity = SCNVector3Zero
@@ -40,31 +39,65 @@ class EnemyEntity : Entity {
             node.addChildNode(physicsNode)
         }
         
-        //load Animations
-        let idleAnimation = GameUtils.loadAnimation(sceneName: baseName + "Idle", withExtension: "dae", animationIdentifier: GameConstants.Enemy.idleAnimationIdentifier)
-        animations[GameConstants.Enemy.idleAnimationKey] = idleAnimation
-        let walkAnimation = GameUtils.loadAnimation(sceneName: baseName + "Walk", withExtension: "dae", animationIdentifier: GameConstants.Enemy.walkAnimationIdentifier)
-        animations[GameConstants.Enemy.walkAnimationKey] = walkAnimation
-        let alertedAnimation = GameUtils.loadAnimation(sceneName: baseName + "Alerted", withExtension: "dae", animationIdentifier: GameConstants.Enemy.alertedAnimationIdentifier)
-        animations[GameConstants.Enemy.alertedAnimationKey] = alertedAnimation
-        let hitAnimation = GameUtils.loadAnimation(sceneName: baseName + "Hit", withExtension: "dae", animationIdentifier: GameConstants.Enemy.hitAnimationIdentifier)
-        animations[GameConstants.Enemy.hitAnimationKey] = hitAnimation
-        let attackAnimation = GameUtils.loadAnimation(sceneName: baseName + "Attack", withExtension: "dae", animationIdentifier: GameConstants.Enemy.attackAnimationIdentifier)
-        animations[GameConstants.Enemy.attackAnimationKey] = attackAnimation
-        let dieAnimation = GameUtils.loadAnimation(sceneName: baseName + "Die", withExtension: "dae", animationIdentifier: GameConstants.Enemy.dieAnimationIdentifier)
-        animations[GameConstants.Enemy.dieAnimationKey] = dieAnimation
-        let runAnimation = GameUtils.loadAnimation(sceneName: baseName + "Run", withExtension: "dae", animationIdentifier: GameConstants.Enemy.runAnimationIdentifier)
-        animations[GameConstants.Enemy.runAnimationKey] = runAnimation
-        let screamAnimation = GameUtils.loadAnimation(sceneName: baseName + "Scream", withExtension: "dae", animationIdentifier: GameConstants.Enemy.screamAnimationIdentifier)
-        animations[GameConstants.Enemy.screamAnimationKey] = screamAnimation
-        let leftTurnAnimation = GameUtils.loadAnimation(sceneName: baseName + "LeftTurn", withExtension: "dae", animationIdentifier: GameConstants.Enemy.leftTurnAnimationIdentifier)
-        animations[GameConstants.Enemy.leftTurnAnimationKey] = leftTurnAnimation
-        let rightTurnAnimation = GameUtils.loadAnimation(sceneName: baseName + "RightTurn", withExtension: "dae", animationIdentifier: GameConstants.Enemy.rightTurnAnimationIdentifier)
-        animations[GameConstants.Enemy.rightTurnAnimationKey] = rightTurnAnimation
-        
-        // Play the default animation
         node.removeAllAnimations()
-        node.addAnimation(animations[GameConstants.Enemy.idleAnimationKey]!, forKey:GameConstants.Enemy.idleAnimationKey)
+        
+        //load Animations
+        let idleAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Idle.dae")
+        node.addAnimationPlayer(idleAnimation, forKey:GameConstants.Enemy.idleAnimationKey)
+        animationDict[.Idle] = GameConstants.Enemy.idleAnimationKey
+        idleAnimation.stop()
+        
+        let walkAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Walk.dae")
+        node.addAnimationPlayer(walkAnimation, forKey:GameConstants.Enemy.walkAnimationKey)
+        animationDict[.Walk] = GameConstants.Enemy.walkAnimationKey
+        walkAnimation.stop()
+
+        let alertedAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Alerted.dae")
+        node.addAnimationPlayer(alertedAnimation, forKey:GameConstants.Enemy.alertedAnimationKey)
+        animationDict[.Alert] = GameConstants.Enemy.alertedAnimationKey
+        alertedAnimation.stop()
+
+        let hitAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Hit.dae")
+        node.addAnimationPlayer(hitAnimation, forKey:GameConstants.Enemy.hitAnimationKey)
+        animationDict[.Hit] = GameConstants.Enemy.hitAnimationKey
+        hitAnimation.stop()
+
+        let attackAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Attack.dae")
+        node.addAnimationPlayer(attackAnimation, forKey:GameConstants.Enemy.attackAnimationKey)
+        animationDict[.Attack] = GameConstants.Enemy.attackAnimationKey
+        attackAnimation.stop()
+
+        let dieAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Die.dae")
+        node.addAnimationPlayer(dieAnimation, forKey:GameConstants.Enemy.dieAnimationKey)
+        animationDict[.Die] = GameConstants.Enemy.dieAnimationKey
+        dieAnimation.animation.repeatCount = 1
+        dieAnimation.animation.animationDidStop = { _, _ , _ in
+            print("Enemy die ANIMATION DID STOP")
+        }
+        dieAnimation.stop()
+
+        let runAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Run.dae")
+        node.addAnimationPlayer(runAnimation, forKey:GameConstants.Enemy.runAnimationKey)
+        animationDict[.Run] = GameConstants.Enemy.runAnimationKey
+        runAnimation.stop()
+
+        let screamAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Scream.dae")
+        node.addAnimationPlayer(screamAnimation, forKey:GameConstants.Enemy.screamAnimationKey)
+        animationDict[.Scream] = GameConstants.Enemy.screamAnimationKey
+        screamAnimation.stop()
+
+        let leftTurnAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "LeftTurn.dae")
+        node.addAnimationPlayer(leftTurnAnimation, forKey:GameConstants.Enemy.leftTurnAnimationKey)
+        animationDict[.LeftTurn] = GameConstants.Enemy.leftTurnAnimationKey
+        leftTurnAnimation.stop()
+
+        let rightTurnAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "RightTurn.dae")
+        node.addAnimationPlayer(rightTurnAnimation, forKey:GameConstants.Enemy.rightTurnAnimationKey)
+        animationDict[.RightTurn] = GameConstants.Enemy.leftTurnAnimationKey
+        rightTurnAnimation.stop()
+
+        // Play the default animation
+        idleAnimation.play()
     }
     
     func getName() -> String {
@@ -90,72 +123,13 @@ class EnemyEntity : Entity {
             return
         }
         
-        switch(currentAnimationState) {
-        case .Idle:
-            node.removeAnimation(forKey:GameConstants.Enemy.idleAnimationKey)
-            break
-        case .Walk:
-            node.removeAnimation(forKey:GameConstants.Enemy.walkAnimationKey)
-            break
-        case .Alert:
-            node.removeAnimation(forKey:GameConstants.Enemy.alertedAnimationKey)
-            break
-        case .Attack:
-            node.removeAnimation(forKey:GameConstants.Enemy.attackAnimationKey)
-            break
-        case .Hit:
-            node.removeAnimation(forKey:GameConstants.Enemy.hitAnimationKey)
-            break
-        case .Die:
-            node.removeAnimation(forKey:GameConstants.Enemy.dieAnimationKey)
-            break
-        case .Run:
-            node.removeAnimation(forKey:GameConstants.Enemy.runAnimationKey)
-            break
-        case .Scream:
-            node.removeAnimation(forKey:GameConstants.Enemy.screamAnimationKey)
-            break
-        case .LeftTurn:
-            node.removeAnimation(forKey:GameConstants.Enemy.leftTurnAnimationKey)
-            break
-        case .RightTurn:
-            node.removeAnimation(forKey:GameConstants.Enemy.rightTurnAnimationKey)
-            break
+        if let animationKey = animationDict[currentAnimationState] {
+            node.animationPlayer(forKey:animationKey)!.stop()
         }
-        switch(newState) {
-        case .Idle:
-            node.addAnimation(animations[GameConstants.Enemy.idleAnimationKey]!, forKey:GameConstants.Enemy.idleAnimationKey)
-            break
-        case .Walk:
-            node.addAnimation(animations[GameConstants.Enemy.walkAnimationKey]!, forKey:GameConstants.Enemy.walkAnimationKey)
-            break
-        case .Alert:
-            node.addAnimation(animations[GameConstants.Enemy.alertedAnimationKey]!, forKey:GameConstants.Enemy.alertedAnimationKey)
-            break
-        case .Attack:
-            node.addAnimation(animations[GameConstants.Enemy.attackAnimationKey]!, forKey:GameConstants.Enemy.attackAnimationKey)
-            break
-        case .Hit:
-            node.addAnimation(animations[GameConstants.Enemy.hitAnimationKey]!, forKey:GameConstants.Enemy.hitAnimationKey)
-            break
-        case .Run:
-            node.addAnimation(animations[GameConstants.Enemy.runAnimationKey]!, forKey:GameConstants.Enemy.runAnimationKey)
-            break
-        case .Scream:
-            node.addAnimation(animations[GameConstants.Enemy.screamAnimationKey]!, forKey:GameConstants.Enemy.screamAnimationKey)
-            break
-        case .Die:
-            let animationObject = animations[GameConstants.Enemy.dieAnimationKey]!
-            animationObject.repeatCount = 1
-            node.addAnimation(animationObject, forKey:GameConstants.Enemy.dieAnimationKey)
-            break
-        case .LeftTurn:
-            node.addAnimation(animations[GameConstants.Enemy.leftTurnAnimationKey]!, forKey:GameConstants.Enemy.leftTurnAnimationKey)
-            break
-        case .RightTurn:
-            node.addAnimation(animations[GameConstants.Enemy.rightTurnAnimationKey]!, forKey:GameConstants.Enemy.rightTurnAnimationKey)
-            break
+        if let newAnimationKey = animationDict[newState] {
+            node.animationPlayer(forKey:newAnimationKey)!.play()
         }
+        
         currentAnimationState = newState
     }
 }
