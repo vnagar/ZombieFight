@@ -12,6 +12,7 @@ class EntityManager {
     static let sharedInstance = EntityManager()
     private var player:PlayerEntity?
     private var playerStateMachine:PlayerStateMachine?
+    private var enemyStateMachines = [SCNNode:EnemyStateMachine]()
     private var enemies = [EnemyEntity]()
     
     private init() {
@@ -29,8 +30,14 @@ class EntityManager {
     }
     
     func createEnemies() -> [EnemyEntity] {
-        let enemy = EnemyEntity(name:"Enemy1")
+        
+        let enemy = EnemyEntity(name:"Enemy1", baseName:"Art.scnassets/characters/zombie1/")
         enemies.append(enemy)
+
+        let idleState = EnemyIdleState()
+        let alertState = EnemyAlertedState()
+        let enemyStateMachine = EnemyStateMachine(owner:enemy, stateList:[idleState, alertState])
+        enemyStateMachines[enemy.getNode()] = enemyStateMachine
         
         return enemies
     }
@@ -39,6 +46,8 @@ class EntityManager {
         playerStateMachine?.preupdate(time: time)
         player?.update(time:time)
         for enemy in enemies {
+            let sm = enemyStateMachines[enemy.getNode()]
+            sm?.preupdate(time: time)
             enemy.update(time:time)
         }
     }
@@ -47,6 +56,8 @@ class EntityManager {
         playerStateMachine?.update(time: time)
         player?.physicsUpdate(time:time)
         for enemy in enemies {
+            let sm = enemyStateMachines[enemy.getNode()]
+            sm?.update(time: time)
             enemy.physicsUpdate(time:time)
         }
     }

@@ -17,6 +17,8 @@ class GameLevel0 : GameLevel {
     private var currentCameraNode = SCNNode()
     private var playerCameraNode = SCNNode()
     private let playerSpawnPoint = SCNVector3(-6.0, 0.0, 5.0)
+    private let enemySpawnPoint = SCNVector3(-7.0, 0.0, -3.0)
+
     let gameTime = GameTime()
     
     override init() {
@@ -101,6 +103,7 @@ class GameLevel0 : GameLevel {
         let enemies = EntityManager.sharedInstance.createEnemies()
         for enemy in enemies {
             scene.rootNode.addChildNode(enemy.getNode())
+            enemy.getNode().position = enemySpawnPoint
         }
     }
     

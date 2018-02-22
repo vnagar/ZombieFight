@@ -35,8 +35,14 @@ enum PlayerAnimationState : Int {
 
 enum EnemyAnimationState : Int {
     case Idle = 0,
+    Alert,
     Walk,
+    Run,
     Attack,
+    LeftTurn,
+    RightTurn,
+    Hit,
+    Scream,
     Die
 }
 
@@ -78,6 +84,29 @@ struct GameConstants {
     }
     struct Enemy {
         static let speedFactor = Float(5.0)
+        static let idleAnimationKey = "idleAnimationKey"
+        static let walkAnimationKey = "walkAnimationKey"
+        static let alertedAnimationKey = "alertedAnimationKey"
+        static let attackAnimationKey = "attackAnimationKey"
+        static let hitAnimationKey = "hitAnimationKey"
+        static let dieAnimationKey = "dieAnimationKey"
+        static let runAnimationKey = "runAnimationKey"
+        static let screamAnimationKey = "screamAnimationKey"
+        static let leftTurnAnimationKey = "leftTurnAnimationKey"
+        static let rightTurnAnimationKey = "rightTurnAnimationKey"
+        
+        
+        // These identifiers are in the dae file for the skeleton node
+        static let idleAnimationIdentifier = "idleAnimation"
+        static let walkAnimationIdentifier = "walkAnimation"
+        static let alertedAnimationIdentifier = "alertedAnimation"
+        static let attackAnimationIdentifier = "attackAnimation"
+        static let hitAnimationIdentifier = "hitAnimation"
+        static let dieAnimationIdentifier = "dieAnimation"
+        static let runAnimationIdentifier = "runAnimation"
+        static let screamAnimationIdentifier = "screamAnimation"
+        static let leftTurnAnimationIdentifier = "leftTurnAnimation"
+        static let rightTurnAnimationIdentifier = "rightTurnAnimation"
     }
     struct MainMenu {
         static let levelName1 = "Level 1"

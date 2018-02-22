@@ -17,6 +17,14 @@
 		955B7482203DBD3A00383320 /* PlayerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7480203DBD3A00383320 /* PlayerIdleState.swift */; };
 		955B7484203DBF1900383320 /* PlayerWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7483203DBF1900383320 /* PlayerWalkState.swift */; };
 		955B7485203DBF1900383320 /* PlayerWalkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7483203DBF1900383320 /* PlayerWalkState.swift */; };
+		955B748A203E3CB400383320 /* EnemyStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7486203E3CB300383320 /* EnemyStateMachine.swift */; };
+		955B748B203E3CB400383320 /* EnemyStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7486203E3CB300383320 /* EnemyStateMachine.swift */; };
+		955B748E203E3CB400383320 /* EnemyIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7488203E3CB400383320 /* EnemyIdleState.swift */; };
+		955B748F203E3CB400383320 /* EnemyIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7488203E3CB400383320 /* EnemyIdleState.swift */; };
+		955B7490203E3CB400383320 /* EnemyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7489203E3CB400383320 /* EnemyState.swift */; };
+		955B7491203E3CB400383320 /* EnemyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7489203E3CB400383320 /* EnemyState.swift */; };
+		955B7493203E3D1F00383320 /* EnemyAlertedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7492203E3D1F00383320 /* EnemyAlertedState.swift */; };
+		955B7494203E3D1F00383320 /* EnemyAlertedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B7492203E3D1F00383320 /* EnemyAlertedState.swift */; };
 		9598139C203C8FED00218A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598139B203C8FED00218A0A /* AppDelegate.swift */; };
 		9598139E203C8FED00218A0A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598139D203C8FED00218A0A /* GameViewController.swift */; };
 		959813A1203C8FED00218A0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9598139F203C8FED00218A0A /* Main.storyboard */; };
@@ -80,6 +88,10 @@
 		955B747D203DBA8800383320 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		955B7480203DBD3A00383320 /* PlayerIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerIdleState.swift; sourceTree = "<group>"; };
 		955B7483203DBF1900383320 /* PlayerWalkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWalkState.swift; sourceTree = "<group>"; };
+		955B7486203E3CB300383320 /* EnemyStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyStateMachine.swift; sourceTree = "<group>"; };
+		955B7488203E3CB400383320 /* EnemyIdleState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyIdleState.swift; sourceTree = "<group>"; };
+		955B7489203E3CB400383320 /* EnemyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyState.swift; sourceTree = "<group>"; };
+		955B7492203E3D1F00383320 /* EnemyAlertedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAlertedState.swift; sourceTree = "<group>"; };
 		95981392203C8FED00218A0A /* Art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Art.scnassets; sourceTree = "<group>"; };
 		95981393203C8FED00218A0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95981398203C8FED00218A0A /* ZombieFight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZombieFight.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +262,10 @@
 		959813E6203CD7E800218A0A /* states */ = {
 			isa = PBXGroup;
 			children = (
+				955B7492203E3D1F00383320 /* EnemyAlertedState.swift */,
+				955B7488203E3CB400383320 /* EnemyIdleState.swift */,
+				955B7489203E3CB400383320 /* EnemyState.swift */,
+				955B7486203E3CB300383320 /* EnemyStateMachine.swift */,
 				955B747A203DBA6200383320 /* PlayerStateMachine.swift */,
 				955B747D203DBA8800383320 /* PlayerState.swift */,
 				955B7480203DBD3A00383320 /* PlayerIdleState.swift */,
@@ -409,6 +425,7 @@
 				95EB6036203D158200AD27CC /* EnemyEntity.swift in Sources */,
 				959813D6203CA01700218A0A /* GameScenesManager.swift in Sources */,
 				955B747E203DBA8800383320 /* PlayerState.swift in Sources */,
+				955B748E203E3CB400383320 /* EnemyIdleState.swift in Sources */,
 				95EB6019203CDED900AD27CC /* LevelFailedMenu.swift in Sources */,
 				95EB602D203D138300AD27CC /* EntityManager.swift in Sources */,
 				959813E2203CA9AD00218A0A /* GameController.swift in Sources */,
@@ -418,6 +435,8 @@
 				959813DC203CA79F00218A0A /* GameLevel.swift in Sources */,
 				959813D0203C9A2800218A0A /* NavigationMeshGraph.swift in Sources */,
 				955B746F203DA6E200383320 /* GameUtils.swift in Sources */,
+				955B748A203E3CB400383320 /* EnemyStateMachine.swift in Sources */,
+				955B7490203E3CB400383320 /* EnemyState.swift in Sources */,
 				955B7481203DBD3A00383320 /* PlayerIdleState.swift in Sources */,
 				959813E0203CA9AD00218A0A /* GameView.swift in Sources */,
 				959813D2203C9A2800218A0A /* NavigationMesh.swift in Sources */,
@@ -426,6 +445,7 @@
 				95EB6018203CDED900AD27CC /* HUDNode.swift in Sources */,
 				959813CC203C99B100218A0A /* SCNExtensions.swift in Sources */,
 				959813D9203CA0D300218A0A /* Constants.swift in Sources */,
+				955B7493203E3D1F00383320 /* EnemyAlertedState.swift in Sources */,
 				955B7484203DBF1900383320 /* PlayerWalkState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,6 +465,7 @@
 				95EB601C203CE07A00AD27CC /* HUDNode.swift in Sources */,
 				95EB6037203D158200AD27CC /* EnemyEntity.swift in Sources */,
 				955B747F203DBA8800383320 /* PlayerState.swift in Sources */,
+				955B748F203E3CB400383320 /* EnemyIdleState.swift in Sources */,
 				95EB601D203CE07A00AD27CC /* LevelCompleteMenu.swift in Sources */,
 				95EB601E203CE07A00AD27CC /* LevelFailedMenu.swift in Sources */,
 				95EB602E203D138300AD27CC /* EntityManager.swift in Sources */,
@@ -454,6 +475,8 @@
 				959813E3203CA9AD00218A0A /* GameController.swift in Sources */,
 				959813AF203C8FED00218A0A /* GameViewController.swift in Sources */,
 				959813DD203CA79F00218A0A /* GameLevel.swift in Sources */,
+				955B748B203E3CB400383320 /* EnemyStateMachine.swift in Sources */,
+				955B7491203E3CB400383320 /* EnemyState.swift in Sources */,
 				955B7482203DBD3A00383320 /* PlayerIdleState.swift in Sources */,
 				959813D1203C9A2800218A0A /* NavigationMeshGraph.swift in Sources */,
 				959813E1203CA9AD00218A0A /* GameView.swift in Sources */,
@@ -462,6 +485,7 @@
 				959813AD203C8FED00218A0A /* AppDelegate.swift in Sources */,
 				959813CD203C99B100218A0A /* SCNExtensions.swift in Sources */,
 				959813DA203CA0D300218A0A /* Constants.swift in Sources */,
+				955B7494203E3D1F00383320 /* EnemyAlertedState.swift in Sources */,
 				955B7485203DBF1900383320 /* PlayerWalkState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
