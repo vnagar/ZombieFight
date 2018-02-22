@@ -10,14 +10,6 @@ import SceneKit
 import SpriteKit
 import simd
 
-enum AudioSourceKind: Int {
-    case collect = 0
-    case collectBig
-    case unlockDoor
-    case hitEnemy
-    case totalCount
-}
-
 class GameLevel0 : GameLevel {
     private var player:PlayerEntity?
     private var toggleCamera = false
@@ -26,6 +18,7 @@ class GameLevel0 : GameLevel {
     private var playerCameraNode = SCNNode()
     private let playerSpawnPoint = SCNVector3(-6.0, 0.0, 5.0)
     private let enemySpawnPoint = SCNVector3(-7.0, 0.0, -3.0)
+    private var audioSetUp = false
 
     let gameTime = GameTime()
     
@@ -48,6 +41,10 @@ class GameLevel0 : GameLevel {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if(audioSetUp == false) {
+            self.setupAudio()
+            audioSetUp = true
+        }
         if(toggleCamera) {
             if (currentCameraNode == mainCameraNode) {
                 currentCameraNode = playerCameraNode
@@ -105,7 +102,6 @@ class GameLevel0 : GameLevel {
         scene.rootNode.addChildNode(p.getNode())
         playerCameraNode = p.getCameraNode()
         currentCameraNode = playerCameraNode
-        sceneView.pointOfView = currentCameraNode
 
         p.getNode().position = playerSpawnPoint
         p.getNode().eulerAngles = SCNVector3(0.0, Double.pi, 0.0)
@@ -116,8 +112,7 @@ class GameLevel0 : GameLevel {
             enemy.getNode().position = enemySpawnPoint
         }
         
-        
-        //self.setupAudio()
+        sceneView.pointOfView = currentCameraNode
 
     }
     
@@ -195,6 +190,8 @@ class GameLevel0 : GameLevel {
             break
         case KeyboardEvents.SPACEBAR:
             print("SPACEBAR")
+            self.setupAudio()
+
             break
         case KeyboardEvents.ESCAPE:
             toggleCamera = !toggleCamera
@@ -242,6 +239,7 @@ class GameLevel0 : GameLevel {
     
     
     func attack() {
+
         print("Handling attack touch")
     }
     

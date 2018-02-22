@@ -24,6 +24,7 @@ class PlayerEntity : Entity {
     let categoryBitMask = ColliderType.Player.rawValue
     
     // Sound effects
+    private var audioSetUp = false
     private var aahSound: SCNAudioSource!
     private var ouchSound: SCNAudioSource!
     private var hitSound: SCNAudioSource!
@@ -136,6 +137,10 @@ class PlayerEntity : Entity {
     }
     
     func update(time:GameTime) {
+        if(audioSetUp == false) {
+            self.loadSounds()
+            audioSetUp = true
+        }
         self.velocity = self.direction * speed
         node.position = node.position - velocity * Float(time.deltaTime)
     }
@@ -181,7 +186,9 @@ class PlayerEntity : Entity {
             node.animationPlayer(forKey:GameConstants.Player.idleAnimationKey)!.stop()
             break
         case .Walk:
-            node.animationPlayer(forKey:GameConstants.Player.walkAnimationKey)!.stop()
+            let anim = node.animationPlayer(forKey:GameConstants.Player.walkAnimationKey)!
+            anim.animation.animationEvents = []
+            anim.stop()
             break
         case .Punch:
             node.animationPlayer(forKey:GameConstants.Player.punchAnimationKey)!.stop()
@@ -214,6 +221,10 @@ class PlayerEntity : Entity {
             break
         case .Walk:
             let anim = node.animationPlayer(forKey:GameConstants.Player.walkAnimationKey)!
+            anim.animation.animationEvents = [
+                SCNAnimationEvent(keyTime: 0.1, block: { _, _, _ in self.playFootStep() }),
+                SCNAnimationEvent(keyTime: 0.6, block: { _, _, _ in self.playFootStep() })
+            ]
             anim.play()
             break
         case .Punch:
