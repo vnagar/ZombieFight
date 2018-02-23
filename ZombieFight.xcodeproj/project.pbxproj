@@ -11,6 +11,8 @@
 		9542554B203F878600162564 /* EnemyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95425549203F878600162564 /* EnemyTarget.swift */; };
 		95425550203F910200162564 /* EnemyPatrolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9542554F203F910200162564 /* EnemyPatrolState.swift */; };
 		95425551203F910200162564 /* EnemyPatrolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9542554F203F910200162564 /* EnemyPatrolState.swift */; };
+		95425553203F9E4600162564 /* EnemyAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95425552203F9E4600162564 /* EnemyAttackState.swift */; };
+		95425554203F9E4600162564 /* EnemyAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95425552203F9E4600162564 /* EnemyAttackState.swift */; };
 		955B746F203DA6E200383320 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B746E203DA6E200383320 /* GameUtils.swift */; };
 		955B7470203DA71800383320 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B746E203DA6E200383320 /* GameUtils.swift */; };
 		955B747B203DBA6200383320 /* PlayerStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B747A203DBA6200383320 /* PlayerStateMachine.swift */; };
@@ -89,6 +91,7 @@
 /* Begin PBXFileReference section */
 		95425549203F878600162564 /* EnemyTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyTarget.swift; sourceTree = "<group>"; };
 		9542554F203F910200162564 /* EnemyPatrolState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyPatrolState.swift; sourceTree = "<group>"; };
+		95425552203F9E4600162564 /* EnemyAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAttackState.swift; sourceTree = "<group>"; };
 		955B746E203DA6E200383320 /* GameUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUtils.swift; sourceTree = "<group>"; };
 		955B747A203DBA6200383320 /* PlayerStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStateMachine.swift; sourceTree = "<group>"; };
 		955B747D203DBA8800383320 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
@@ -278,6 +281,7 @@
 				955B7483203DBF1900383320 /* PlayerWalkState.swift */,
 				95425549203F878600162564 /* EnemyTarget.swift */,
 				9542554F203F910200162564 /* EnemyPatrolState.swift */,
+				95425552203F9E4600162564 /* EnemyAttackState.swift */,
 			);
 			path = states;
 			sourceTree = "<group>";
@@ -426,6 +430,7 @@
 				95EB601A203CDED900AD27CC /* MenuUtils.swift in Sources */,
 				95EB602A203CFF0200AD27CC /* GameTime.swift in Sources */,
 				95EB6033203D153200AD27CC /* PlayerEntity.swift in Sources */,
+				95425553203F9E4600162564 /* EnemyAttackState.swift in Sources */,
 				955B747B203DBA6200383320 /* PlayerStateMachine.swift in Sources */,
 				95EB6016203CDED900AD27CC /* LevelCompleteMenu.swift in Sources */,
 				95EB6017203CDED900AD27CC /* GameLevelsMenu.swift in Sources */,
@@ -468,6 +473,7 @@
 				95EB6027203CE61D00AD27CC /* GameLevel0.swift in Sources */,
 				95EB6028203CE61D00AD27CC /* GameLevel2.swift in Sources */,
 				95EB602B203CFF0200AD27CC /* GameTime.swift in Sources */,
+				95425554203F9E4600162564 /* EnemyAttackState.swift in Sources */,
 				955B747C203DBA6200383320 /* PlayerStateMachine.swift in Sources */,
 				95EB6034203D153200AD27CC /* PlayerEntity.swift in Sources */,
 				95EB6022203CE27100AD27CC /* GameConstants.swift in Sources */,

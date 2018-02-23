@@ -23,12 +23,12 @@ class EnemyStateMachine {
     var target = EnemyTarget()
     private var hasReachedDestination = false
     private var destinationCloseLimit = Float(0.1)
+    var isInAttackRange = false
     
     init(owner:Entity, stateList:[EnemyState]) {
         self.owner = owner
         for state in stateList {
-            if let val = states[state.getStateType()] {
-                print("State already exists ... \(val)")
+            if let _ = states[state.getStateType()] {
             } else {
                 states[state.getStateType()] = state
                 state.setStateMachine(stateMachine: self)

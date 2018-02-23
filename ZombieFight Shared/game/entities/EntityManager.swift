@@ -37,8 +37,10 @@ class EntityManager {
         let idleState = EnemyIdleState()
         let alertState = EnemyAlertedState()
         let patrolState = EnemyPatrolState()
-        let enemyStateMachine = EnemyStateMachine(owner:enemy, stateList:[idleState, alertState, patrolState])
+        let attackState = EnemyAttackState()
+        let enemyStateMachine = EnemyStateMachine(owner:enemy, stateList:[idleState, alertState, patrolState, attackState])
         enemyStateMachines[enemy.getNode()] = enemyStateMachine
+        enemyStateMachines[enemy.getPhysicsNode()] = enemyStateMachine
         
         return enemies
     }
@@ -69,5 +71,24 @@ class EntityManager {
             enemy.destroy()
         }
         enemies.removeAll()
+    }
+    
+    func registerAIStateMachine(collider:SCNNode, stateMachine:EnemyStateMachine) {
+        if let _ = enemyStateMachines[collider] {
+            print("collider \(collider) already exists")
+        } else {
+            enemyStateMachines[collider] = stateMachine
+        }
+    }
+    
+    func getAIStateMachine(collider:SCNNode) -> EnemyStateMachine? {
+        if let val = enemyStateMachines[collider] {
+            return val
+        }
+        return nil
+    }
+    
+    func clearDatabase() {
+        enemyStateMachines.removeAll()
     }
 }

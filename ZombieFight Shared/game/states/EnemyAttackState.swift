@@ -1,5 +1,5 @@
 //
-//  EnemyPatrolState.swift
+//  EnemyAttackState.swift
 //  ZombieFight
 //
 //  Created by Vivek Nagar on 2/22/18.
@@ -8,7 +8,7 @@
 
 import SceneKit
 
-class EnemyPatrolState : EnemyState {
+class EnemyAttackState : EnemyState {
     
     override init() {
         super.init()
@@ -16,24 +16,25 @@ class EnemyPatrolState : EnemyState {
     }
     
     override func onEnterState() {
-        print("Entering Patrol state")
+        print("Entering Attack state")
         if let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity {
-            owner.changeAnimationStateTo(newState: .Walk)
-            owner.setDestination(targetPosition: SCNVector3(-6.0, 0.0, 4.0))
-            
+            owner.changeAnimationStateTo(newState: .Attack)
         }
     }
     
-    override func onExitState() {}
+    override func onExitState() {
+    }
     
-    override func getStateType() -> EnemyStateType { return .Patrol }
+    override func getStateType() -> EnemyStateType { return .Attack }
     
     override func onUpdate(time:GameTime) -> EnemyStateType {
         if let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity {
             if(sm.isInAttackRange) {
                 return .Attack
+            } else {
+                return .Patrol
             }
         }
-        return .Patrol
+        return .Attack
     }
 }

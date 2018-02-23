@@ -85,7 +85,6 @@ class PlayerEntity : Entity {
         let dieAnimation = GameUtils.loadAnimation(fromSceneNamed: baseName + "Die.dae")
         dieAnimation.animation.repeatCount = 1
         dieAnimation.animation.animationDidStop = { _, _ , _ in
-            print("Player die animation DID STOP")
         }
         node.addAnimationPlayer(dieAnimation, forKey:GameConstants.Player.dieAnimationKey)
         animationDict[.Die] = GameConstants.Player.dieAnimationKey
@@ -128,7 +127,6 @@ class PlayerEntity : Entity {
         cameraNode.position = SCNVector3(x: 0, y: SCNFloat(box.height+0.5), z: -1.0)
         cameraNode.eulerAngles = SCNVector3(-Double.pi/8, Double.pi, 0.0)
         node.addChildNode(cameraNode)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

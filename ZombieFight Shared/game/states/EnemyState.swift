@@ -24,9 +24,23 @@ class EnemyState {
     func onExitState() {}
     func getStateType() -> EnemyStateType { return EnemyStateType.None}
     func onUpdate(time:GameTime) -> EnemyStateType {return EnemyStateType.None}
+    
     func onTriggerEvent(eventType:AITriggerEventType, collider:SCNNode) {
         //called when collisions happen, evaluate threats
+        if let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity {
+            if(eventType != .Exit) {
+                if(collider.name == "Player") {
+                    sm.isInAttackRange = true
+                }
+            
+            } else {
+                if(collider.name == "Player") {
+                    sm.isInAttackRange = false
+                }
+            }
+        }
     }
+    
     func onDestinationReached(isReached:Bool) { }
 
 }

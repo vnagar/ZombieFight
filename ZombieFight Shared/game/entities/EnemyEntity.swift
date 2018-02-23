@@ -11,6 +11,7 @@ import SceneKit
 class EnemyEntity : Entity {
     private var name = ""
     private var node = SCNNode()
+    private var physicsNode = SCNNode()
     private var currentAnimationState = EnemyAnimationState.Idle
     private var animationDict = [EnemyAnimationState: String]()
     private let scale = SCNVector3(0.007, 0.007, 0.007)
@@ -61,7 +62,7 @@ class EnemyEntity : Entity {
             idleNode.scale = scale
             node.addChildNode(idleNode)
             
-            let physicsNode = SCNNode()
+            physicsNode = SCNNode()
             physicsNode.name = name
             let geo = SCNCapsule(capRadius: 0.40, height: 1.0)
             let shape = SCNPhysicsShape(geometry: geo, options: nil)
@@ -105,7 +106,6 @@ class EnemyEntity : Entity {
         animationDict[.Die] = GameConstants.Enemy.dieAnimationKey
         dieAnimation.animation.repeatCount = 1
         dieAnimation.animation.animationDidStop = { _, _ , _ in
-            print("Enemy die ANIMATION DID STOP")
         }
         dieAnimation.stop()
 
@@ -141,8 +141,12 @@ class EnemyEntity : Entity {
         return self.node
     }
     
+    func getPhysicsNode() -> SCNNode {
+        return self.physicsNode
+    }
+    
     func update(time:GameTime) {
-        if(currentAnimationState == .Idle) {
+        if(currentAnimationState == .Idle || currentAnimationState == .Attack) {
             return
         }
         //let force = seek(target:currentDestination)
@@ -154,7 +158,7 @@ class EnemyEntity : Entity {
         let accel = force / SCNFloat(_mass)
         //update the velocity
         velocity = SCNVector3(velocity.x + accel.x, velocity.y, velocity.z + accel.z)
-        //make sure vehicle does not exceed maximum velocity
+        //make sure enemy does not exceed maximum velocity
         velocity = velocity.truncate(max: Float(_maxSpeed))
         
         if(velocity.lengthSquared() < 0.0001) {

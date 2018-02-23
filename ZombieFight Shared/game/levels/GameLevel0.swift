@@ -69,12 +69,27 @@ class GameLevel0 : GameLevel {
                 player!.getNode().position -= player!.getNode().orientationVector() * 0.1
             }
         }
+        contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
+            print("Contact happened with:\(matching.name) and \(other.name)")
+            let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Enter, collider: other)
+        }
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+        contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
+            print("Contact update with:\(matching.name) and \(other.name)")
+            let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Stay, collider: other)
+        }
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
+            print("Contact exit with:\(matching.name) and \(other.name)")
+            let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Exit, collider: other)
+        }
     }
     
     override func startLevel() {
