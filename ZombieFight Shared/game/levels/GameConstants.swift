@@ -15,7 +15,7 @@ enum ColliderType: Int {
     case Wall = 32
     case Block = 64
     case Ground = 128
-    case Door = 256
+    case EnemySensor = 256
     case PowerUp = 512
     case Obstacle = 1024
 }

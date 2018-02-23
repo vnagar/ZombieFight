@@ -71,25 +71,40 @@ class GameLevel0 : GameLevel {
             }
         }
         contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
-            print("Contact happened with:\(matching.name) and \(other.name)")
+            print("Contact happened with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
-            sm?.onTriggerEvent(eventType: AITriggerEventType.Enter, collider: other)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Enter, collider: other, matchingCollider:matching)
+        }
+        contact.match(ColliderType.EnemySensor.rawValue) { (matching, other) in
+            print("Contact happened with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Enter, collider: other, matchingCollider:matching)
         }
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
         contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
-            print("Contact update with:\(matching.name) and \(other.name)")
+            print("Contact update with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
-            sm?.onTriggerEvent(eventType: AITriggerEventType.Stay, collider: other)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Stay, collider: other, matchingCollider:matching)
+        }
+        contact.match(ColliderType.EnemySensor.rawValue) { (matching, other) in
+            print("Contact update with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Stay, collider: other, matchingCollider:matching)
         }
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
-            print("Contact exit with:\(matching.name) and \(other.name)")
+            print("Contact exit with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
-            sm?.onTriggerEvent(eventType: AITriggerEventType.Exit, collider: other)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Exit, collider: other, matchingCollider:matching)
+        }
+        contact.match(ColliderType.EnemySensor.rawValue) { (matching, other) in
+            print("Contact exit with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
+            sm?.onTriggerEvent(eventType: AITriggerEventType.Exit, collider: other, matchingCollider:matching)
         }
     }
     

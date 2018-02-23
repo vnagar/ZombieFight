@@ -12,6 +12,7 @@ class EnemyEntity : Entity {
     private var name = ""
     private var node = SCNNode()
     private var physicsNode = SCNNode()
+    private var sensorNode = SCNNode()
     private var currentAnimationState = EnemyAnimationState.Idle
     private var animationDict = [EnemyAnimationState: String]()
     private let scale = SCNVector3(0.007, 0.007, 0.007)
@@ -19,6 +20,8 @@ class EnemyEntity : Entity {
     private var velocity = SCNVector3Zero
     let contactTestBitMask = ColliderType.Player.rawValue
     let categoryBitMask = ColliderType.Enemy.rawValue
+    let enemySensorBitMask = ColliderType.EnemySensor.rawValue
+    let sensorContactTestBitMask = ColliderType.Player.rawValue
     
     private var _fov = Float(60.0)
     private var _sight = Float(1.0) // between 0 and 1
@@ -34,7 +37,6 @@ class EnemyEntity : Entity {
     private let _mass = Float(1.0)
 
     private var targetPath = [SCNVector3Zero]
-    
     
     var fov:Float {get {return _fov}}
     var sight:Float {get {return _sight}}
@@ -62,7 +64,6 @@ class EnemyEntity : Entity {
             idleNode.scale = scale
             node.addChildNode(idleNode)
             
-            physicsNode = SCNNode()
             physicsNode.name = name
             let geo = SCNCapsule(capRadius: 0.40, height: 1.0)
             let shape = SCNPhysicsShape(geometry: geo, options: nil)
@@ -71,6 +72,14 @@ class EnemyEntity : Entity {
             physicsNode.physicsBody?.categoryBitMask = categoryBitMask
             physicsNode.position = SCNVector3(0.0, 0.5, 0.0)
             node.addChildNode(physicsNode)
+            
+            sensorNode.name = self.name + "Sensor"
+            sensorNode.position = SCNVector3Make(0.0, 0.0, 0.0)
+            let shape1 = SCNPhysicsShape(geometry: SCNSphere(radius:5.0), options: nil)
+            sensorNode.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.kinematic, shape: shape1)
+            sensorNode.physicsBody?.contactTestBitMask = sensorContactTestBitMask
+            sensorNode.physicsBody?.categoryBitMask = enemySensorBitMask
+            node.addChildNode(sensorNode)
         }
         
         node.removeAllAnimations()
@@ -143,6 +152,10 @@ class EnemyEntity : Entity {
     
     func getPhysicsNode() -> SCNNode {
         return self.physicsNode
+    }
+    
+    func getSensorNode() -> SCNNode {
+        return self.sensorNode
     }
     
     func update(time:GameTime) {

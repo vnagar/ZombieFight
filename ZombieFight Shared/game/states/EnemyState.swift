@@ -25,16 +25,16 @@ class EnemyState {
     func getStateType() -> EnemyStateType { return EnemyStateType.None}
     func onUpdate(time:GameTime) -> EnemyStateType {return EnemyStateType.None}
     
-    func onTriggerEvent(eventType:AITriggerEventType, collider:SCNNode) {
+    func onTriggerEvent(eventType:AITriggerEventType, collider:SCNNode, matchingCollider:SCNNode) {
         //called when collisions happen, evaluate threats
-        if let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity {
+        if let sm = self.stateMachine, let _ = sm.getOwner() as? EnemyEntity {
             if(eventType != .Exit) {
-                if(collider.name == "Player") {
+                if((collider.name == "Player") && matchingCollider.physicsBody!.categoryBitMask == ColliderType.Enemy.rawValue) {
                     sm.isInAttackRange = true
                 }
             
             } else {
-                if(collider.name == "Player") {
+                if(collider.name == "Player"  && matchingCollider.physicsBody!.categoryBitMask == ColliderType.Enemy.rawValue) {
                     sm.isInAttackRange = false
                 }
             }

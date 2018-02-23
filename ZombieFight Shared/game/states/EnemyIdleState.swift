@@ -32,9 +32,7 @@ class EnemyIdleState : EnemyState {
     override func getStateType() -> EnemyStateType { return EnemyStateType.Idle }
     
     override func onUpdate(time:GameTime) -> EnemyStateType {
-        if let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity {
-            
-        }
+        guard let sm = self.stateMachine, let _ = sm.getOwner() as? EnemyEntity  else { return .None }
         timer = timer + time.deltaTime
         if (timer < idleTime) {
             return .Idle

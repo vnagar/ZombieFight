@@ -24,7 +24,7 @@ class EnemyAlertedState : EnemyState {
     override func onExitState() {}
     override func getStateType() -> EnemyStateType { return EnemyStateType.Alerted }
     override func onUpdate(time:GameTime) -> EnemyStateType {
-        if let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity {
+        if let sm = self.stateMachine, let _ = sm.getOwner() as? EnemyEntity {
         }
         return .Alerted
     }

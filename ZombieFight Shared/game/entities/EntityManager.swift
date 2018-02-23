@@ -50,7 +50,8 @@ class EntityManager {
         let enemyStateMachine = EnemyStateMachine(owner:enemy, stateList:[idleState, alertState, patrolState, attackState])
         enemyStateMachines[enemy.getNode()] = enemyStateMachine
         enemyStateMachines[enemy.getPhysicsNode()] = enemyStateMachine
-        
+        enemyStateMachines[enemy.getSensorNode()] = enemyStateMachine
+
         return enemies
     }
     

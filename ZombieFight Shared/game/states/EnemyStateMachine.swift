@@ -55,9 +55,9 @@ class EnemyStateMachine {
         // Also disable target collider
     }
     
-    func onTriggerEvent(eventType:AITriggerEventType, collider:SCNNode) {
+    func onTriggerEvent(eventType:AITriggerEventType, collider:SCNNode, matchingCollider:SCNNode) {
         // called when collisions happen, let the state evaluate the threats
-        currentState?.onTriggerEvent(eventType: eventType, collider: collider)
+        currentState?.onTriggerEvent(eventType: eventType, collider: collider, matchingCollider:matchingCollider)
     }
     
     func preupdate(time:GameTime) {

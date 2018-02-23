@@ -51,7 +51,7 @@ class EnemyPatrolState : EnemyState {
     override func getStateType() -> EnemyStateType { return .Patrol }
     
     override func onUpdate(time:GameTime) -> EnemyStateType {
-        if let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity {
+        if let sm = self.stateMachine, let _ = sm.getOwner() as? EnemyEntity {
             if(sm.isInAttackRange) {
                 return .Attack
             }
