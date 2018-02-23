@@ -6,7 +6,7 @@
 //  Copyright © 2018 Vivek Nagar. All rights reserved.
 //
 
-import Foundation
+import SceneKit
 
 class EnemyState {
     var stateMachine:EnemyStateMachine?
@@ -24,5 +24,9 @@ class EnemyState {
     func onExitState() {}
     func getStateType() -> EnemyStateType { return EnemyStateType.None}
     func onUpdate(time:GameTime) -> EnemyStateType {return EnemyStateType.None}
-    
+    func onTriggerEvent(eventType:AITriggerEventType, collider:SCNNode) {
+        //called when collisions happen, evaluate threats
+    }
+    func onDestinationReached(isReached:Bool) { }
+
 }

@@ -73,7 +73,7 @@ extension float3 {
 }
 
 // MARK: CoreAnimation
-
+/*
 extension CAAnimation {
     class func animationWithSceneNamed(_ name: String) -> CAAnimation? {
         var animation: CAAnimation?
@@ -88,6 +88,7 @@ extension CAAnimation {
         return animation
     }
 }
+ */
 
 // MARK: SceneKit
 extension SCNAnimationPlayer {

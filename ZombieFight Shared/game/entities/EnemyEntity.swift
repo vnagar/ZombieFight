@@ -16,9 +16,42 @@ class EnemyEntity : Entity {
     private let scale = SCNVector3(0.007, 0.007, 0.007)
     private var direction = SCNVector3Zero
     private var velocity = SCNVector3Zero
-    private var speed = Float(2.0)
     let contactTestBitMask = ColliderType.Player.rawValue
     let categoryBitMask = ColliderType.Enemy.rawValue
+    
+    private var _fov = Float(60.0)
+    private var _sight = Float(1.0) // between 0 and 1
+    private var _hearing = Float(1.0) // between 0 and 1
+    private var _aggression = Float(0.8) // between 0 and 1
+    private var _health = 100 // between 0 and 100
+    private var _intelligence = Float(1.0) // between 0 and 1
+    private var _satisfaction = Float(1.0) // between 0 and 1
+    private var _inMeleeRange:Bool = false
+    private var _speed = Float(0.1)
+    private let _maxSpeed = 0.3
+    private let _brakingRate = Float(0.75)
+    private let _mass = Float(1.0)
+
+    private var targetPosition = SCNVector3Zero
+    
+    
+    var fov:Float {get {return _fov}}
+    var sight:Float {get {return _sight}}
+    var hearing:Float {get {return _hearing}}
+    var aggression:Float {get {return _aggression} set { _aggression = newValue } }
+    var health:Int {get {return _health} set { _health = newValue} }
+    var intelligence:Float {get {return _intelligence}}
+    var satisfaction:Float {get {return _satisfaction} set { _satisfaction = newValue } }
+    var inMeleeRange : Bool {get {return _inMeleeRange} set {_inMeleeRange = newValue}}
+    var speed : Float {get {return _speed} set {_speed = newValue}}
+    
+    private var directionAngle: SCNFloat = 0.0 {
+        didSet {
+            if directionAngle != oldValue {
+                node.runAction(SCNAction.rotateTo(x: 0.0, y: CGFloat(directionAngle), z: 0.0, duration: 0.1, usesShortestUnitArc: true))
+            }
+        }
+    }
     
     init(name:String, baseName:String) {
         self.name = name
@@ -109,6 +142,28 @@ class EnemyEntity : Entity {
     }
     
     func update(time:GameTime) {
+        if(currentAnimationState == .Idle) {
+            return
+        }
+        //let force = seek(target:currentDestination)
+        let force = arrive(target:targetPosition, decelerationFactor: 0.75)
+        if (force == SCNVector3Zero) {
+            velocity = velocity * _brakingRate
+        }
+        //calculate the acceleration
+        let accel = force / SCNFloat(_mass)
+        //update the velocity
+        velocity = SCNVector3(velocity.x + accel.x, velocity.y, velocity.z + accel.z)
+        //make sure vehicle does not exceed maximum velocity
+        velocity = velocity.truncate(max: Float(_maxSpeed))
+        
+        if(velocity.lengthSquared() < 0.0001) {
+            print("Reached destination")
+        } else {
+            node.position = node.position + velocity * Float(time.deltaTime)
+            let heading = velocity.normalized()
+            directionAngle = SCNFloat(atan2(heading.x, heading.z))
+        }
     }
     
     func physicsUpdate(time: GameTime) {
@@ -116,6 +171,11 @@ class EnemyEntity : Entity {
     
     func destroy() {
         node.removeFromParentNode()
+    }
+    
+    func setDestination(targetPosition:SCNVector3) {
+        print("Setting destination to \(targetPosition)")
+        self.targetPosition = targetPosition
     }
     
     func changeAnimationStateTo(newState:EnemyAnimationState) {
@@ -131,5 +191,33 @@ class EnemyEntity : Entity {
         }
         
         currentAnimationState = newState
+    }
+    
+    private func seek(target:SCNVector3) -> SCNVector3 {
+        let toTarget = target - node.position
+        let distance = toTarget.length()
+        if(distance > 0) {
+            let desiredVelocity = toTarget * Float(_maxSpeed) / SCNFloat(distance)
+            
+            return (desiredVelocity - velocity)
+        }
+        return SCNVector3Zero
+    }
+    
+    private func arrive(target:SCNVector3, decelerationFactor:Float) -> SCNVector3 {
+        let toTarget = target - node.position
+        let distance = toTarget.length()
+        
+        if(distance > 0.1) {
+            var speed = distance/decelerationFactor
+            
+            //make sure velocity does not exceed max
+            if(speed > Float(_maxSpeed)) {
+                speed = Float(_maxSpeed)
+            }
+            let desiredVelocity = toTarget * speed / SCNFloat(distance)
+            return (desiredVelocity - velocity)
+        }
+        return SCNVector3Zero
     }
 }

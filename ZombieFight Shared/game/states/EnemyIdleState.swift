@@ -39,7 +39,7 @@ class EnemyIdleState : EnemyState {
         if (timer < idleTime) {
             return .Idle
         } else {
-            return .Alerted
+            return .Patrol
         }
     }
 }

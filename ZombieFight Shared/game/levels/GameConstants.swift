@@ -54,6 +54,10 @@ enum PlayerStateType : Int {
     case None = 0, Idle, Walk, Run, Jump, Kick, Punch, Shoot, Dead
 }
 
+enum EnemyTargetType : Int {
+    case None = 0, Waypoint, Visual_Player, Visual_Light, Visual_Food, Audio
+}
+
 struct GameConstants {
     struct Player {
         static let speedFactor = Float(10.0)

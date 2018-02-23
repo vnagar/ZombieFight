@@ -36,7 +36,8 @@ class EntityManager {
 
         let idleState = EnemyIdleState()
         let alertState = EnemyAlertedState()
-        let enemyStateMachine = EnemyStateMachine(owner:enemy, stateList:[idleState, alertState])
+        let patrolState = EnemyPatrolState()
+        let enemyStateMachine = EnemyStateMachine(owner:enemy, stateList:[idleState, alertState, patrolState])
         enemyStateMachines[enemy.getNode()] = enemyStateMachine
         
         return enemies

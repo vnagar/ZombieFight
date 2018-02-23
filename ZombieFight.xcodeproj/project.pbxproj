@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9542554A203F878600162564 /* EnemyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95425549203F878600162564 /* EnemyTarget.swift */; };
+		9542554B203F878600162564 /* EnemyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95425549203F878600162564 /* EnemyTarget.swift */; };
+		95425550203F910200162564 /* EnemyPatrolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9542554F203F910200162564 /* EnemyPatrolState.swift */; };
+		95425551203F910200162564 /* EnemyPatrolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9542554F203F910200162564 /* EnemyPatrolState.swift */; };
 		955B746F203DA6E200383320 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B746E203DA6E200383320 /* GameUtils.swift */; };
 		955B7470203DA71800383320 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B746E203DA6E200383320 /* GameUtils.swift */; };
 		955B747B203DBA6200383320 /* PlayerStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955B747A203DBA6200383320 /* PlayerStateMachine.swift */; };
@@ -83,6 +87,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		95425549203F878600162564 /* EnemyTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyTarget.swift; sourceTree = "<group>"; };
+		9542554F203F910200162564 /* EnemyPatrolState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyPatrolState.swift; sourceTree = "<group>"; };
 		955B746E203DA6E200383320 /* GameUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUtils.swift; sourceTree = "<group>"; };
 		955B747A203DBA6200383320 /* PlayerStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStateMachine.swift; sourceTree = "<group>"; };
 		955B747D203DBA8800383320 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
@@ -270,6 +276,8 @@
 				955B747D203DBA8800383320 /* PlayerState.swift */,
 				955B7480203DBD3A00383320 /* PlayerIdleState.swift */,
 				955B7483203DBF1900383320 /* PlayerWalkState.swift */,
+				95425549203F878600162564 /* EnemyTarget.swift */,
+				9542554F203F910200162564 /* EnemyPatrolState.swift */,
 			);
 			path = states;
 			sourceTree = "<group>";
@@ -445,6 +453,8 @@
 				95EB6018203CDED900AD27CC /* HUDNode.swift in Sources */,
 				959813CC203C99B100218A0A /* SCNExtensions.swift in Sources */,
 				959813D9203CA0D300218A0A /* Constants.swift in Sources */,
+				9542554A203F878600162564 /* EnemyTarget.swift in Sources */,
+				95425550203F910200162564 /* EnemyPatrolState.swift in Sources */,
 				955B7493203E3D1F00383320 /* EnemyAlertedState.swift in Sources */,
 				955B7484203DBF1900383320 /* PlayerWalkState.swift in Sources */,
 			);
@@ -485,6 +495,8 @@
 				959813AD203C8FED00218A0A /* AppDelegate.swift in Sources */,
 				959813CD203C99B100218A0A /* SCNExtensions.swift in Sources */,
 				959813DA203CA0D300218A0A /* Constants.swift in Sources */,
+				9542554B203F878600162564 /* EnemyTarget.swift in Sources */,
+				95425551203F910200162564 /* EnemyPatrolState.swift in Sources */,
 				955B7494203E3D1F00383320 /* EnemyAlertedState.swift in Sources */,
 				955B7485203DBF1900383320 /* PlayerWalkState.swift in Sources */,
 			);
