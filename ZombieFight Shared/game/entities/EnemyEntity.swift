@@ -33,7 +33,7 @@ class EnemyEntity : Entity {
     private let _brakingRate = Float(0.75)
     private let _mass = Float(1.0)
 
-    private var targetPosition = SCNVector3Zero
+    private var targetPath = [SCNVector3Zero]
     
     
     var fov:Float {get {return _fov}}
@@ -150,7 +150,8 @@ class EnemyEntity : Entity {
             return
         }
         //let force = seek(target:currentDestination)
-        let force = arrive(target:targetPosition, decelerationFactor: 0.75)
+        //let force = arrive(target:targetPosition, decelerationFactor: 0.75)
+        let force = followPath(path:targetPath)
         if (force == SCNVector3Zero) {
             velocity = velocity * _brakingRate
         }
@@ -177,9 +178,16 @@ class EnemyEntity : Entity {
         node.removeFromParentNode()
     }
     
+    private var currentIndex = 0
+
     func setDestination(targetPosition:SCNVector3) {
+        currentIndex = 0
         print("Setting destination to \(targetPosition)")
-        self.targetPosition = targetPosition
+        if let navmesh = EntityManager.sharedInstance.getNavigationMesh() {
+            self.targetPath = navmesh.findPathBetweenPoints(fromPoint: self.node.position, toPoint: targetPosition)
+        } else {
+            self.targetPath = [targetPosition]
+        }
     }
     
     func changeAnimationStateTo(newState:EnemyAnimationState) {
@@ -224,4 +232,28 @@ class EnemyEntity : Entity {
         }
         return SCNVector3Zero
     }
+    
+    func followPath(path:[SCNVector3]) -> SCNVector3 {
+        if(currentIndex == path.count) {
+            return SCNVector3Zero
+        }
+        let currentWaypoint = path[currentIndex]
+            
+        if((self.node.position - currentWaypoint).length() < 0.1) {
+            print("Reached next waypoint, updating index to \(currentIndex + 1)")
+            currentIndex = currentIndex + 1
+            if(currentIndex == path.count) {
+                // reach last
+                return arrive(target: currentWaypoint, decelerationFactor:1.0)
+            }
+        } else {
+            if(currentIndex <= path.count-1) {
+                return seek(target: currentWaypoint)
+            } else {
+                return arrive(target: currentWaypoint, decelerationFactor:1.0)
+            }
+        }
+        return SCNVector3Zero
+    }
+
 }

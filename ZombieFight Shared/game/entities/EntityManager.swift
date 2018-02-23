@@ -10,12 +10,21 @@ import SceneKit
 
 class EntityManager {
     static let sharedInstance = EntityManager()
+    private var navigationMesh:NavigationMesh?
     private var player:PlayerEntity?
     private var playerStateMachine:PlayerStateMachine?
     private var enemyStateMachines = [SCNNode:EnemyStateMachine]()
     private var enemies = [EnemyEntity]()
     
     private init() {
+    }
+    
+    func setNavigationMesh(_ navmesh:NavigationMesh) {
+        navigationMesh = navmesh
+    }
+    
+    func getNavigationMesh() -> NavigationMesh? {
+        return self.navigationMesh
     }
     
     func createPlayer() -> PlayerEntity {

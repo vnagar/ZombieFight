@@ -60,6 +60,8 @@
 		959813E3203CA9AD00218A0A /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959813DF203CA9AD00218A0A /* GameController.swift */; };
 		959813EB203CD7E900218A0A /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959813E9203CD7E800218A0A /* GameLevel1.swift */; };
 		959813EC203CD7E900218A0A /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959813E9203CD7E800218A0A /* GameLevel1.swift */; };
+		95CFCE342040B01E00735255 /* AIWaypointNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CFCE332040B01E00735255 /* AIWaypointNetwork.swift */; };
+		95CFCE352040B01E00735255 /* AIWaypointNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CFCE332040B01E00735255 /* AIWaypointNetwork.swift */; };
 		95EB6016203CDED900AD27CC /* LevelCompleteMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6011203CDED900AD27CC /* LevelCompleteMenu.swift */; };
 		95EB6017203CDED900AD27CC /* GameLevelsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6012203CDED900AD27CC /* GameLevelsMenu.swift */; };
 		95EB6018203CDED900AD27CC /* HUDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6013203CDED900AD27CC /* HUDNode.swift */; };
@@ -123,6 +125,7 @@
 		959813DE203CA9AD00218A0A /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		959813DF203CA9AD00218A0A /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		959813E9203CD7E800218A0A /* GameLevel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevel1.swift; sourceTree = "<group>"; };
+		95CFCE332040B01E00735255 /* AIWaypointNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIWaypointNetwork.swift; sourceTree = "<group>"; };
 		95EB6011203CDED900AD27CC /* LevelCompleteMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteMenu.swift; sourceTree = "<group>"; };
 		95EB6012203CDED900AD27CC /* GameLevelsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevelsMenu.swift; sourceTree = "<group>"; };
 		95EB6013203CDED900AD27CC /* HUDNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDNode.swift; sourceTree = "<group>"; };
@@ -271,6 +274,7 @@
 		959813E6203CD7E800218A0A /* states */ = {
 			isa = PBXGroup;
 			children = (
+				95CFCE332040B01E00735255 /* AIWaypointNetwork.swift */,
 				955B7492203E3D1F00383320 /* EnemyAlertedState.swift */,
 				955B7488203E3CB400383320 /* EnemyIdleState.swift */,
 				955B7489203E3CB400383320 /* EnemyState.swift */,
@@ -449,6 +453,7 @@
 				959813D0203C9A2800218A0A /* NavigationMeshGraph.swift in Sources */,
 				955B746F203DA6E200383320 /* GameUtils.swift in Sources */,
 				955B748A203E3CB400383320 /* EnemyStateMachine.swift in Sources */,
+				95CFCE342040B01E00735255 /* AIWaypointNetwork.swift in Sources */,
 				955B7490203E3CB400383320 /* EnemyState.swift in Sources */,
 				955B7481203DBD3A00383320 /* PlayerIdleState.swift in Sources */,
 				959813E0203CA9AD00218A0A /* GameView.swift in Sources */,
@@ -492,6 +497,7 @@
 				959813AF203C8FED00218A0A /* GameViewController.swift in Sources */,
 				959813DD203CA79F00218A0A /* GameLevel.swift in Sources */,
 				955B748B203E3CB400383320 /* EnemyStateMachine.swift in Sources */,
+				95CFCE352040B01E00735255 /* AIWaypointNetwork.swift in Sources */,
 				955B7491203E3CB400383320 /* EnemyState.swift in Sources */,
 				955B7482203DBD3A00383320 /* PlayerIdleState.swift in Sources */,
 				959813D1203C9A2800218A0A /* NavigationMeshGraph.swift in Sources */,

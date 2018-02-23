@@ -31,7 +31,8 @@ class GameLevel0 : GameLevel {
         //self.scene = SCNScene(named: "Art.scnassets/ship.scn")!
         self.scene = SCNScene(named: "Art.scnassets/models/bunker.dae")!
         if let navmeshNode = scene.rootNode.childNode(withName: "Navmesh", recursively: true) {
-            let _ = NavigationMesh(scene: scene, node: navmeshNode)
+            let navmesh = NavigationMesh(scene: scene, node: navmeshNode)
+            EntityManager.sharedInstance.setNavigationMesh(navmesh)
             navmeshNode.removeFromParentNode()
         } else {
             print("Cannot find navigation mesh in scene")

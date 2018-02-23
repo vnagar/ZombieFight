@@ -21,8 +21,8 @@ class EnemyStateMachine {
     var visualThreat = EnemyTarget()
     var audioThreat = EnemyTarget()
     var target = EnemyTarget()
-    private var hasReachedDestination = false
     private var destinationCloseLimit = Float(0.1)
+    var reachedTarget = false
     var isInAttackRange = false
     
     init(owner:Entity, stateList:[EnemyState]) {
@@ -69,7 +69,7 @@ class EnemyStateMachine {
         if(target.type != EnemyTargetType.None) {
             target.distance = (owner!.getNode().position - target.position).length()
             if(target.distance < destinationCloseLimit) {
-                hasReachedDestination = true
+                reachedTarget = true
                 currentState?.onDestinationReached(isReached: true)
             }
         }
