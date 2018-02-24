@@ -127,6 +127,8 @@ class PlayerEntity : Entity {
         cameraNode.position = SCNVector3(x: 0, y: SCNFloat(box.height+0.5), z: -1.0)
         cameraNode.eulerAngles = SCNVector3(-Double.pi/8, Double.pi, 0.0)
         node.addChildNode(cameraNode)
+        
+        self.loadParticles()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -262,5 +264,17 @@ class PlayerEntity : Entity {
             steps[i].isPositional = false
             steps[i].load()
         }
+    }
+    
+    private func loadParticles() {
+        let bloodParticleNode = SCNNode()
+        bloodParticleNode.position = SCNVector3(0.0, 1.0, 0.0)
+        let bloodTrail = SCNParticleSystem(named: "blood.scnp", inDirectory: "Art.scnassets/particles")!
+        bloodTrail.particleColor = SCNColor.red
+        bloodTrail.birthRate = 0
+        bloodTrail.particleSize = 0.01
+        print("particle size is \(bloodTrail.particleSize)")
+        bloodParticleNode.addParticleSystem(bloodTrail)
+        self.node.addChildNode(bloodParticleNode)
     }
 }
