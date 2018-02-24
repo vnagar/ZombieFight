@@ -46,9 +46,11 @@ class EnemyStateMachine {
         target.setTarget(t: t, c: c, p: p, d: d)
     }
     
+    
     func setTarget(t:EnemyTarget) {
-        target = t
+        target.setTarget(t:t.type, c:t.collider, p:t.position, d:t.distance)
     }
+    
     
     func clearTarget() {
         target.clear()

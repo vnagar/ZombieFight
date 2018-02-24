@@ -57,7 +57,8 @@ class EnemyPatrolState : EnemyState {
             }
             if (sm.visualThreat.type == .Visual_Player) {
                 print("Located Player:pursing...")
-                sm.setTarget(t: sm.visualThreat)
+                sm.setTarget(t: sm.visualThreat.type, c: sm.visualThreat.collider, p: sm.visualThreat.position, d: sm.visualThreat.distance)
+                //sm.setTarget(t: sm.visualThreat)
                 return .Pursuit
             }
         }

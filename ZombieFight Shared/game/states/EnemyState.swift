@@ -23,7 +23,9 @@ class EnemyState {
     func onEnterState() {}
     func onExitState() {}
     func getStateType() -> EnemyStateType { return EnemyStateType.None}
-    func onUpdate(time:GameTime) -> EnemyStateType {return EnemyStateType.None}
+    func onUpdate(time:GameTime) -> EnemyStateType {
+        return EnemyStateType.None
+    }
     
     func onTriggerEvent(eventType:AITriggerEventType, collider:SCNNode, matchingCollider:SCNNode) {
         //called when collisions happen, set visual and audio threats that can then be evaluated by individual states
@@ -42,7 +44,7 @@ class EnemyState {
                     let distance = (owner.getNode().position - collider.getWorldPosition()).length()
                     if((currentVisualThreatType != .Visual_Player) || (currentVisualThreatType == .Visual_Player && distance < sm.visualThreat.distance) ) {
                         if isPlayerVisible(collider) {
-                            print("Player is in FOV")
+                            //print("Player is in FOV")
                             //it is close and in our FOV, so store it as the most dangerous target
                             sm.visualThreat.setTarget(t: .Visual_Player, c: collider, p: collider.getWorldPosition(), d: distance)
                         }
