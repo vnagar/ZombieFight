@@ -23,7 +23,7 @@ class EnemyEntity : Entity {
     let enemySensorBitMask = ColliderType.EnemySensor.rawValue
     let sensorContactTestBitMask = ColliderType.Player.rawValue
     
-    private var _fov = Float(60.0)
+    private var _fov = Float(80.0)
     private var _sight = Float(1.0) // between 0 and 1
     private var _hearing = Float(1.0) // between 0 and 1
     private var _aggression = Float(0.8) // between 0 and 1
@@ -31,8 +31,12 @@ class EnemyEntity : Entity {
     private var _intelligence = Float(1.0) // between 0 and 1
     private var _satisfaction = Float(1.0) // between 0 and 1
     private var _inMeleeRange:Bool = false
+    private let _walkspeed = Float(0.1)
+    private let _maxWalkSpeed = Float(0.3)
+    private let _runSpeed = Float(0.2)
+    private let _maxRunSpeed = Float(1.0)
     private var _speed = Float(0.1)
-    private let _maxSpeed = 0.3
+    private var _maxSpeed = Float(0.3)
     private let _brakingRate = Float(0.75)
     private let _mass = Float(1.0)
 
@@ -161,6 +165,12 @@ class EnemyEntity : Entity {
     func update(time:GameTime) {
         if(currentAnimationState == .Idle || currentAnimationState == .Attack) {
             return
+        } else {
+            if(currentAnimationState == .Run) {
+                _maxSpeed = _maxRunSpeed
+            } else {
+                _maxSpeed = _maxWalkSpeed
+            }
         }
         //let force = seek(target:currentDestination)
         //let force = arrive(target:targetPosition, decelerationFactor: 0.75)

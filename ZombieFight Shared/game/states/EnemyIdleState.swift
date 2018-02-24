@@ -33,6 +33,11 @@ class EnemyIdleState : EnemyState {
     
     override func onUpdate(time:GameTime) -> EnemyStateType {
         guard let sm = self.stateMachine, let _ = sm.getOwner() as? EnemyEntity  else { return .None }
+        if (sm.visualThreat.type == .Visual_Player) {
+            print("Located Player:pursing...")
+            sm.setTarget(t: sm.visualThreat)
+            return .Pursuit
+        }
         timer = timer + time.deltaTime
         if (timer < idleTime) {
             return .Idle

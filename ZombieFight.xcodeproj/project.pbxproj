@@ -62,6 +62,8 @@
 		959813EC203CD7E900218A0A /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959813E9203CD7E800218A0A /* GameLevel1.swift */; };
 		95CFCE342040B01E00735255 /* AIWaypointNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CFCE332040B01E00735255 /* AIWaypointNetwork.swift */; };
 		95CFCE352040B01E00735255 /* AIWaypointNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CFCE332040B01E00735255 /* AIWaypointNetwork.swift */; };
+		95CFCE372040DDEF00735255 /* EnemyPursuitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CFCE362040DDEF00735255 /* EnemyPursuitState.swift */; };
+		95CFCE382040DDEF00735255 /* EnemyPursuitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CFCE362040DDEF00735255 /* EnemyPursuitState.swift */; };
 		95EB6016203CDED900AD27CC /* LevelCompleteMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6011203CDED900AD27CC /* LevelCompleteMenu.swift */; };
 		95EB6017203CDED900AD27CC /* GameLevelsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6012203CDED900AD27CC /* GameLevelsMenu.swift */; };
 		95EB6018203CDED900AD27CC /* HUDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EB6013203CDED900AD27CC /* HUDNode.swift */; };
@@ -126,6 +128,7 @@
 		959813DF203CA9AD00218A0A /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		959813E9203CD7E800218A0A /* GameLevel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevel1.swift; sourceTree = "<group>"; };
 		95CFCE332040B01E00735255 /* AIWaypointNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIWaypointNetwork.swift; sourceTree = "<group>"; };
+		95CFCE362040DDEF00735255 /* EnemyPursuitState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyPursuitState.swift; sourceTree = "<group>"; };
 		95EB6011203CDED900AD27CC /* LevelCompleteMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteMenu.swift; sourceTree = "<group>"; };
 		95EB6012203CDED900AD27CC /* GameLevelsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevelsMenu.swift; sourceTree = "<group>"; };
 		95EB6013203CDED900AD27CC /* HUDNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDNode.swift; sourceTree = "<group>"; };
@@ -286,6 +289,7 @@
 				95425549203F878600162564 /* EnemyTarget.swift */,
 				9542554F203F910200162564 /* EnemyPatrolState.swift */,
 				95425552203F9E4600162564 /* EnemyAttackState.swift */,
+				95CFCE362040DDEF00735255 /* EnemyPursuitState.swift */,
 			);
 			path = states;
 			sourceTree = "<group>";
@@ -457,6 +461,7 @@
 				955B7490203E3CB400383320 /* EnemyState.swift in Sources */,
 				955B7481203DBD3A00383320 /* PlayerIdleState.swift in Sources */,
 				959813E0203CA9AD00218A0A /* GameView.swift in Sources */,
+				95CFCE372040DDEF00735255 /* EnemyPursuitState.swift in Sources */,
 				959813D2203C9A2800218A0A /* NavigationMesh.swift in Sources */,
 				9598139C203C8FED00218A0A /* AppDelegate.swift in Sources */,
 				95EB6030203D150700AD27CC /* Entity.swift in Sources */,
@@ -501,6 +506,7 @@
 				955B7491203E3CB400383320 /* EnemyState.swift in Sources */,
 				955B7482203DBD3A00383320 /* PlayerIdleState.swift in Sources */,
 				959813D1203C9A2800218A0A /* NavigationMeshGraph.swift in Sources */,
+				95CFCE382040DDEF00735255 /* EnemyPursuitState.swift in Sources */,
 				959813E1203CA9AD00218A0A /* GameView.swift in Sources */,
 				959813D3203C9A2800218A0A /* NavigationMesh.swift in Sources */,
 				95EB6031203D150700AD27CC /* Entity.swift in Sources */,

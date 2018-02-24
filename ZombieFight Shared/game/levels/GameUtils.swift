@@ -9,6 +9,10 @@
 import SceneKit
 import SpriteKit
 
+enum Direction:Int {
+    case Left = 0, Right
+}
+
 class GameUtils {
     class func loadNodeFromScene(filename:String) -> SCNNode? {
         let node = SCNNode()
@@ -104,6 +108,64 @@ class GameUtils {
     
     class func radiansToDegrees(radians: Double) -> Double {
         return radians * 180 / Double.pi
+    }
+    
+    class func getRelativeDirectionBetween(nodeA:SCNNode, nodeB:SCNNode) -> Direction {
+        let pos1 = nodeA.position
+        let pos2 = nodeB.position
+        let orientationVector = nodeA.orientationVector() //from nodeA
+        let toVector = pos2 - pos1
+        
+        let crossProduct = SCNVector3CrossProduct(left: orientationVector, right: toVector)
+        //print("CROSS PRODUCT is \(crossProduct)")
+        if(crossProduct.y > 0.0) {
+            //print("nodeB is to the LEFT of nodeA")
+            return Direction.Left
+        } else {
+            //print("nodeB is to the RIGHT of nodeA")
+            return Direction.Right
+        }
+    }
+    
+    class func getRelativeDirectionBetween(orientationVector:SCNVector3, direction:SCNVector3) -> Direction {
+        let crossProduct = SCNVector3CrossProduct(left: orientationVector, right: direction)
+        //print("CROSS PRODUCT is \(crossProduct)")
+        if(crossProduct.y > 0.0) {
+            //print("nodeB is to the LEFT of nodeA")
+            return Direction.Left
+        } else {
+            //print("nodeB is to the RIGHT of nodeA")
+            return Direction.Right
+        }
+    }
+    
+    class func getAngleBetween(nodeA:SCNNode, nodeB:SCNNode) -> Float {
+        let pos1 = nodeA.position
+        let pos2 = nodeB.position
+        let orientationVector = nodeA.orientationVector() //from nodeA
+        let toVector = pos2 - pos1
+        
+        let angle = orientationVector.angleBetweenInDegrees(vector: toVector)
+        /*
+        if(angle > 90) {
+            // print("nodeB is behind nodeA")
+        } else {
+            //print("nodeB is in front of nodeA")
+        }
+        */
+        return angle
+    }
+    
+    class func getAngleBetween(vectorA:SCNVector3, vectorB:SCNVector3) -> Float {
+        let angle = vectorA.angleBetweenInDegrees(vector: vectorB)
+        /*
+        if(angle > 90) {
+            //print("nodeB is behind nodeA")
+        } else {
+            //print("nodeB is in front of nodeA")
+        }
+        */
+        return angle
     }
     
 }

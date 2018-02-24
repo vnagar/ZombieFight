@@ -55,6 +55,11 @@ class EnemyPatrolState : EnemyState {
             if(sm.isInAttackRange) {
                 return .Attack
             }
+            if (sm.visualThreat.type == .Visual_Player) {
+                print("Located Player:pursing...")
+                sm.setTarget(t: sm.visualThreat)
+                return .Pursuit
+            }
         }
         return .Patrol
     }

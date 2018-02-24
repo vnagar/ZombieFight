@@ -123,6 +123,10 @@ extension SCNNode {
     func orientationVector() -> SCNVector3 {
         return SCNVector3(self.worldTransform.m31, self.worldTransform.m32, self.worldTransform.m33)
     }
+    
+    func getWorldPosition() -> SCNVector3 {
+        return self.convertPosition(self.position, to: nil)
+    }
 }
 
 extension SCNGeometry {
