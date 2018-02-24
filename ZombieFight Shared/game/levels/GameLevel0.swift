@@ -16,8 +16,8 @@ class GameLevel0 : GameLevel {
     private var mainCameraNode = SCNNode()
     private var currentCameraNode = SCNNode()
     private var playerCameraNode = SCNNode()
-    //private let playerSpawnPoint = SCNVector3(-6.0, 0.0, 5.0)
-    private let playerSpawnPoint = SCNVector3(-4.0, 0.0, -3.0)
+    private let playerSpawnPoint = SCNVector3(-6.0, 0.0, 5.0)
+    //private let playerSpawnPoint = SCNVector3(-4.0, 0.0, -3.0)
 
     private let enemySpawnPoint = SCNVector3(-7.0, 0.0, -3.0)
     private var audioSetUp = false
@@ -66,19 +66,19 @@ class GameLevel0 : GameLevel {
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        print("Collision between \(contact.nodeA) and \(contact.nodeB)")
+        //print("Collision between \(contact.nodeA) and \(contact.nodeB)")
         contact.match(ColliderType.Player.rawValue) { (matching, other) in
             if(other.name == "Wall" || other.name == "Box1" || other.name == "Box2") {
                 player!.getNode().position -= player!.getNode().orientationVector() * 0.1
             }
         }
         contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
-            print("Contact happened with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            //print("Contact happened with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
             sm?.onTriggerEvent(eventType: AITriggerEventType.Enter, collider: other, matchingCollider:matching)
         }
         contact.match(ColliderType.EnemySensor.rawValue) { (matching, other) in
-            print("Contact happened with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            //print("Contact happened with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
             sm?.onTriggerEvent(eventType: AITriggerEventType.Enter, collider: other, matchingCollider:matching)
         }
@@ -86,12 +86,12 @@ class GameLevel0 : GameLevel {
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
         contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
-            print("Contact update with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            //print("Contact update with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
             sm?.onTriggerEvent(eventType: AITriggerEventType.Stay, collider: other, matchingCollider:matching)
         }
         contact.match(ColliderType.EnemySensor.rawValue) { (matching, other) in
-            print("Contact update with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            //print("Contact update with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
             sm?.onTriggerEvent(eventType: AITriggerEventType.Stay, collider: other, matchingCollider:matching)
         }
@@ -99,12 +99,12 @@ class GameLevel0 : GameLevel {
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         contact.match(ColliderType.Enemy.rawValue) { (matching, other) in
-            print("Contact exit with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            //print("Contact exit with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
             sm?.onTriggerEvent(eventType: AITriggerEventType.Exit, collider: other, matchingCollider:matching)
         }
         contact.match(ColliderType.EnemySensor.rawValue) { (matching, other) in
-            print("Contact exit with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
+            //print("Contact exit with:\(matching.name ?? "noname") and \(other.name ?? "noname")")
             let sm = EntityManager.sharedInstance.getAIStateMachine(collider: matching)
             sm?.onTriggerEvent(eventType: AITriggerEventType.Exit, collider: other, matchingCollider:matching)
         }

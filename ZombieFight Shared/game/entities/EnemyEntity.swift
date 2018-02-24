@@ -208,9 +208,10 @@ class EnemyEntity : Entity {
 
     func setDestination(targetPosition:SCNVector3) {
         currentIndex = 0
-        print("Setting destination to \(targetPosition)")
+        //print("Setting destination to \(targetPosition)")
         if let navmesh = EntityManager.sharedInstance.getNavigationMesh() {
             self.targetPath = navmesh.findPathBetweenPoints(fromPoint: self.node.position, toPoint: targetPosition)
+            //print("Path now is \(self.targetPath)")
         } else {
             self.targetPath = [targetPosition]
         }
@@ -266,7 +267,7 @@ class EnemyEntity : Entity {
         let currentWaypoint = path[currentIndex]
             
         if((self.node.position - currentWaypoint).length() < 0.1) {
-            print("Reached next waypoint, updating index to \(currentIndex + 1)")
+            //print("Reached next waypoint, updating index to \(currentIndex + 1)")
             currentIndex = currentIndex + 1
             if(currentIndex == path.count) {
                 // reach last
