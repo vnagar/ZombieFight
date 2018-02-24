@@ -16,7 +16,9 @@ class GameLevel0 : GameLevel {
     private var mainCameraNode = SCNNode()
     private var currentCameraNode = SCNNode()
     private var playerCameraNode = SCNNode()
-    private let playerSpawnPoint = SCNVector3(-6.0, 0.0, 5.0)
+    //private let playerSpawnPoint = SCNVector3(-6.0, 0.0, 5.0)
+    private let playerSpawnPoint = SCNVector3(-4.0, 0.0, -3.0)
+
     private let enemySpawnPoint = SCNVector3(-7.0, 0.0, -3.0)
     private var audioSetUp = false
 
@@ -137,7 +139,7 @@ class GameLevel0 : GameLevel {
         p.getNode().position = playerSpawnPoint
         p.getNode().eulerAngles = SCNVector3(0.0, Double.pi, 0.0)
         
-        let enemies = EntityManager.sharedInstance.createEnemies()
+        let enemies = EntityManager.sharedInstance.createEnemies(level:self)
         for enemy in enemies {
             scene.rootNode.addChildNode(enemy.getNode())
             enemy.getNode().position = enemySpawnPoint

@@ -33,7 +33,7 @@ class EnemyState {
                 if((collider.name == "Player") && matchingCollider.physicsBody!.categoryBitMask == ColliderType.Enemy.rawValue) {
                     //case when player's physics body and enemy's physics body collide
                     //check if the player has snuck behind the enemy
-                    if(isColliderVisible(collider)) {
+                    if(isPlayerVisible(collider)) {
                         sm.isInAttackRange = true
                     }
                 }
@@ -41,7 +41,7 @@ class EnemyState {
                     // Sensor collided with player - highest priority threat
                     let distance = (owner.getNode().position - collider.getWorldPosition()).length()
                     if((currentVisualThreatType != .Visual_Player) || (currentVisualThreatType == .Visual_Player && distance < sm.visualThreat.distance) ) {
-                        if isColliderVisible(collider) {
+                        if isPlayerVisible(collider) {
                             print("Player is in FOV")
                             //it is close and in our FOV, so store it as the most dangerous target
                             sm.visualThreat.setTarget(t: .Visual_Player, c: collider, p: collider.getWorldPosition(), d: distance)
@@ -59,16 +59,23 @@ class EnemyState {
     
     func onDestinationReached(isReached:Bool) { }
 
-    private func isColliderVisible(_ collider:SCNNode) -> Bool {
+    private func isPlayerVisible(_ collider:SCNNode) -> Bool {
         guard let sm = self.stateMachine, let owner = sm.getOwner() as? EnemyEntity  else { return false }
 
-        var direction = collider.getWorldPosition() - owner.getNode().position
+        let ownerPosition = owner.getNode().position
+        var direction = collider.getWorldPosition() - ownerPosition
         direction.y = 0.0 // CHECK THIS HACK
         let angleInDegrees = GameUtils.getAngleBetween(vectorA: owner.getNode().orientationVector(), vectorB: direction)
-        print("ANGLE IN DEGREES is \(angleInDegrees)")
+        //print("ANGLE IN DEGREES is \(angleInDegrees)")
         if(angleInDegrees > owner.fov/2.0) {
             return false
         }
-        return true
+        let options = [ SCNPhysicsWorld.TestOption.searchMode : SCNPhysicsWorld.TestSearchMode.closest, SCNPhysicsWorld.TestOption.collisionBitMask : ColliderType.Player.rawValue] as [SCNPhysicsWorld.TestOption : Any]
+        let p0 =  ownerPosition + direction.normalized() * Float(owner.sensorRadius) * Float(owner.sight)
+        let results = owner.level.rayTestWithSegment(from: ownerPosition, to: p0, options:options)
+        if !results.isEmpty {
+            return true
+        }
+        return false
     }
 }

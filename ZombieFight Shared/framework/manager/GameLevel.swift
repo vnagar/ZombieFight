@@ -94,4 +94,8 @@ class GameLevel : NSObject, SCNSceneRendererDelegate, SCNPhysicsContactDelegate 
             child.removeFromParentNode()
         }
     }
+    
+    func rayTestWithSegment(from:SCNVector3, to:SCNVector3, options:[SCNPhysicsWorld.TestOption : Any]? = nil) -> [SCNHitTestResult] {
+        return scene.physicsWorld.rayTestWithSegment(from: from, to: to, options:options)
+    }
 }

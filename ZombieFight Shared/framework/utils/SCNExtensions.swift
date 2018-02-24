@@ -257,8 +257,12 @@ extension SCNVector3
         let lengthB = vector.length()
         
         // Now to find the angle
-        let theta = acos( dot / (lengthA * lengthB) )
-        return theta
+        if(lengthA != 0.0 ||  lengthB != 0) {
+            let theta = acos( dot / (lengthA * lengthB) )
+            return theta
+        } else {
+            return 0.0
+        }
     }
     
     func angleBetweenInDegrees(vector:SCNVector3) -> Float {

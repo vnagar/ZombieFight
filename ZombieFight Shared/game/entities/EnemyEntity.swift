@@ -42,6 +42,8 @@ class EnemyEntity : Entity {
 
     private var targetPath = [SCNVector3Zero]
     
+    let level:GameLevel
+    let sensorRadius = SCNFloat(5.0)
     var fov:Float {get {return _fov}}
     var sight:Float {get {return _sight}}
     var hearing:Float {get {return _hearing}}
@@ -60,9 +62,10 @@ class EnemyEntity : Entity {
         }
     }
     
-    init(name:String, baseName:String) {
+    init(name:String, baseName:String, level:GameLevel) {
         self.name = name
         self.node.name = name
+        self.level = level
         
         if let idleNode = GameUtils.loadNodeFromScene(filename: baseName + "Idle.dae") {
             idleNode.scale = scale
@@ -79,7 +82,7 @@ class EnemyEntity : Entity {
             
             sensorNode.name = self.name + "Sensor"
             sensorNode.position = SCNVector3Make(0.0, 0.0, 0.0)
-            let shape1 = SCNPhysicsShape(geometry: SCNSphere(radius:5.0), options: nil)
+            let shape1 = SCNPhysicsShape(geometry: SCNSphere(radius:sensorRadius), options: nil)
             sensorNode.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.kinematic, shape: shape1)
             sensorNode.physicsBody?.contactTestBitMask = sensorContactTestBitMask
             sensorNode.physicsBody?.categoryBitMask = enemySensorBitMask

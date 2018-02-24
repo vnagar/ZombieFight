@@ -38,9 +38,8 @@ class EntityManager {
         return playerEntity
     }
     
-    func createEnemies() -> [EnemyEntity] {
-        
-        let enemy = EnemyEntity(name:"Enemy1", baseName:"Art.scnassets/characters/zombie1/")
+    func createEnemies(level:GameLevel) -> [EnemyEntity] {
+        let enemy = EnemyEntity(name:"Enemy1", baseName:"Art.scnassets/characters/zombie1/", level:level)
         enemies.append(enemy)
 
         let idleState = EnemyIdleState()
